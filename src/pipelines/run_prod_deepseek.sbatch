@@ -25,7 +25,7 @@ timeout --signal=TERM --kill-after=120 465m bash -c 'bash run_prod_deepseek.sh &
 rc=$?
 echo "[$(date)] link $LINK driver exit $rc" >> nohup_prod_ds.out
 
-util_ok () { python3 -c "import json,sys;u=json.load(open('utility_results.json'));sys.exit(0 if all('prodtask_ds_'+t in u for t in ('memorized','cil','prod')) else 1)" 2>/dev/null; }
+util_ok () { python3 -c "import json,sys;u=json.load(open('utility_results.json'));sys.exit(0 if all('prodtask_ds_'+t in u for t in ('memorized','slice','prod')) else 1)" 2>/dev/null; }
 if grep -q "=== PROD DEEPSEEK EXTRAS COMPLETE ===" nohup_prod_ds.out && util_ok; then
   echo "campaign complete" >> nohup_prod_ds.out
 elif [ $rc -eq 124 ] && [ $LINK -lt $MAXLINK ]; then

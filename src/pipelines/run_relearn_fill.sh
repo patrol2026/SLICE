@@ -6,7 +6,7 @@ cd /path/to/slice || exit 1
 export RELEARN_EPOCHS=6
 export PYTORCH_ALLOC_CONF=expandable_segments:True
 wait_gpu () { while [ "$(nvidia-smi --query-gpu=memory.used --format=csv,noheader,nounits)" -ge 8000 ]; do sleep 120; done; }
-BASE="ga gd npo dpo simnpo ila prod"
+BASE="ga gd npo dpo simnpo codeeraser prod"
 
 adp () { # cell method -> adapter path (grid, else legacy)
   if [ -d adapters_grid/$1/$2/epoch5 ]; then echo adapters_grid/$1/$2/epoch5
@@ -47,13 +47,13 @@ MEM=adapters_prod/memorized/epoch10
 cphave () { python3 -c "import json,sys;sys.exit(0 if 'relearn_$1' in json.load(open('prod_attack_results.json')) else 1)"; }
 epof () { [ "$1" = prod ] && echo epoch3 || echo epoch5; }
 export PROD_SPLITS=prod_splits_A.json          # split A: all 8 methods
-for m in ga gd npo dpo simnpo ila prod cil; do
+for m in ga gd npo dpo simnpo codeeraser prod slice; do
   cphave ${m}_A && { echo "skip relearn_${m}_A"; continue; }
   wait_gpu; echo "=== $(date +%H:%M) COPY relearn_${m}_A ==="
   python3 -u prod_attacks.py relearn --tag ${m}_A --adapters $MEM,adapters_prodA/$m/$(epof $m) || echo "FAIL relearn_${m}_A"
 done
-export PROD_SPLITS=prod_splits.json            # split B: all except SLICE (cil done)
-for m in ga gd npo dpo simnpo ila prod; do
+export PROD_SPLITS=prod_splits.json            # split B: all except SLICE (slice done)
+for m in ga gd npo dpo simnpo codeeraser prod; do
   cphave ${m}_B && { echo "skip relearn_${m}_B"; continue; }
   wait_gpu; echo "=== $(date +%H:%M) COPY relearn_${m}_B ==="
   python3 -u prod_attacks.py relearn --tag ${m}_B --adapters $MEM,adapters_prod/$m/$(epof $m) || echo "FAIL relearn_${m}_B"

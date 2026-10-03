@@ -20,7 +20,7 @@ import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 from prod_funnel import bleu
-import prod_cil_prep as P
+import prod_slice_prep as P
 
 MODEL = "Qwen/Qwen2.5-Coder-7B-Instruct"
 SPLITS_F = os.environ.get("PROD_SPLITS", "prod_splits.json")

@@ -40,23 +40,23 @@ cell_env () {  # cell -> splits file + model env + mutants/ann
 
 for cell in qwenA qwenB dsA dsB; do
   cell_env $cell
-  CIL=adapters_grid/${cell}/cil/epoch5
+  SLICE=adapters_grid/${cell}/slice/epoch5
 
   # ---------- RQ4: loss-component ablations ----------
   for ab in noil noforget noguard nonll; do
     outdir=adapters_ab/${cell}_${ab}
-    if [ ! -d $outdir/cil/epoch5 ]; then
+    if [ ! -d $outdir/slice/epoch5 ]; then
       wait_gpu
-      stage "train_cil-${ab}_${cell}" python3 -u unlearn_lc.py --method cil \
+      stage "train_slice-${ab}_${cell}" python3 -u unlearn_lc.py --method slice \
         --ablation $ab --splits $SPLITS --outdir $outdir --mkey _${cell}_${ab} \
         || { echo "TRAIN ${ab}/${cell} FAILED"; continue; }
     fi
     for ep in 1 3 5; do
-      tag=cil-${ab}_${cell}_ep${ep}
+      tag=slice-${ab}_${cell}_ep${ep}
       have_tag $tag lc_summary.json && continue
       wait_gpu
       stage "eval_${tag}" python3 -u eval_lc.py --tag $tag --batch-size 32 \
-        --adapter $outdir/cil/epoch$ep --splits $SPLITS \
+        --adapter $outdir/slice/epoch$ep --splits $SPLITS \
         || echo "EVAL $tag FAILED"
     done
   done
@@ -64,21 +64,21 @@ for cell in qwenA qwenB dsA dsB; do
   # ---------- RQ3a: MIA ----------
   have_tag "base_${cell}" mia_scores.json || { wait_gpu
     stage "mia_base_${cell}" python3 -u mia_lc.py --tag base_${cell}; }
-  have_tag "cil_${cell}_ep5" mia_scores.json || { wait_gpu
-    stage "mia_cil_${cell}" python3 -u mia_lc.py --tag cil_${cell}_ep5 --adapter $CIL; }
+  have_tag "slice_${cell}_ep5" mia_scores.json || { wait_gpu
+    stage "mia_slice_${cell}" python3 -u mia_lc.py --tag slice_${cell}_ep5 --adapter $SLICE; }
 
   # ---------- RQ3b: paraphrase (needs per-cell paraphrase file) ----------
   PFILE=lc_paraphrases_${cell}.json
   if [ -f $PFILE ]; then
     export LC_PARAS=$PFILE
-    for who in base cil; do
+    for who in base slice; do
       tag=para_${who}_${cell}
       have_tag $tag paraphrase_results.json && continue
       wait_gpu
       if [ $who = base ]; then
         stage "$tag" python3 -u paraphrase_probe.py --tag $tag || echo "$tag FAILED"
       else
-        stage "$tag" python3 -u paraphrase_probe.py --tag $tag --adapter $CIL || echo "$tag FAILED"
+        stage "$tag" python3 -u paraphrase_probe.py --tag $tag --adapter $SLICE || echo "$tag FAILED"
       fi
     done
   else
@@ -86,9 +86,9 @@ for cell in qwenA qwenB dsA dsB; do
   fi
 
   # ---------- RQ3c: relearning ----------
-  have_tag "relearn_cil_${cell}" relearn_results.json || { wait_gpu
-    stage "relearn_${cell}" python3 -u relearn_lc.py --tag relearn_cil_${cell} \
-      --adapter $CIL || echo "RELEARN $cell FAILED"; }
+  have_tag "relearn_slice_${cell}" relearn_results.json || { wait_gpu
+    stage "relearn_${cell}" python3 -u relearn_lc.py --tag relearn_slice_${cell} \
+      --adapter $SLICE || echo "RELEARN $cell FAILED"; }
 done
 
 echo "=== MIA AUC ==="

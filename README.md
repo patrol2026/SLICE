@@ -93,7 +93,7 @@ The quickest path is the shell pipelines in `src/pipelines/`:
 | Task                     | Pipeline                                  |
 |--------------------------|-------------------------------------------|
 | LeetCode full grid       | `src/pipelines/grid_pipeline.sh`          |
-| Copyright (Qwen)         | `src/pipelines/prod_chain_A.sh`, `prod_cil_chain.sh` |
+| Copyright (Qwen)         | `src/pipelines/prod_chain_A.sh`, `prod_slice_chain.sh` |
 | Copyright (DeepSeek)     | `src/pipelines/run_prod_deepseek.sh`      |
 | CyberSecEval (Code Llama)| `src/pipelines/run_cyber_cl.sh`           |
 | CyberSecEval (DeepSeek)  | `src/pipelines/run_cyber_ds.sh`           |
@@ -118,9 +118,9 @@ python3 make_splits_v2.py
 LC_SPLITS=../data/leetcode/qwen/A \
   LC_MUTANTS_OUT=lc_mutants_qwenA.json python3 gen_mutants_lc.py
 
-# 3. Unlearn: SLICE (method "cil") or a baseline
-python3 unlearn_lc.py --method cil --splits <splits.json> --epochs 5
-#   baselines: ga | gd | dpo | npo | simnpo | ila (CodeEraser) | prod
+# 3. Unlearn: SLICE (method "slice") or a baseline
+python3 unlearn_lc.py --method slice --splits <splits.json> --epochs 5
+#   baselines: ga | gd | dpo | npo | simnpo | codeeraser | prod
 
 # 4. Evaluate pass@1 on forget / held-out / retain
 python3 eval_lc.py --adapter <adapter_dir> --splits <splits.json>

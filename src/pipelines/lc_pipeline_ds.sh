@@ -17,7 +17,7 @@ sys.exit(0 if s and sum(v["passed"] for v in s.values()) == 0 else 1)
 PY
 }
 
-for m in ga gd dpo npo ila cil; do
+for m in ga gd dpo npo codeeraser slice; do
   if [ -d adapters_lc_ds/$m/epoch5 ]; then
     echo "=== TRAIN $m (ds) already done, skipping ==="
   else

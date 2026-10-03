@@ -1,12 +1,12 @@
-"""CIL-DPO unlearning on the memorized copyrighted-code model.
+"""SLICE unlearning on the memorized copyrighted-code model.
 
 Base Qwen + merged memorization adapter (epoch 10) = reference model.
-Fresh LoRA r=16 is trained with CIL pairs from prod_cil_data.json:
+Fresh LoRA r=16 is trained with SLICE pairs from prod_slice_data.json:
   forget files: chosen = mutated block, rejected = original block
   retain files: reversed (guard), capped at ~1x the forget-pair count
   retain-NLL anchor on whole retain files
 Raw-text encoding (no chat template), context masked, target-only loss.
-Saves adapters_prod/cil/epoch{k}.
+Saves adapters_prod/slice/epoch{k}.
 """
 
 import json
@@ -27,9 +27,9 @@ MODEL = os.environ.get("PROD_MODEL", "Qwen/Qwen2.5-Coder-7B-Instruct")
 LORA_TARGETS = os.environ.get("PROD_LORA_TARGETS", "q_proj,k_proj,v_proj,o_proj,gate_proj,up_proj,down_proj").split(",")
 PROD_MEM = os.environ.get("PROD_MEM", "adapters_prod/memorized/epoch10")
 
-OUT = os.environ.get("PROD_CIL_OUT", "adapters_prod/cil")
+OUT = os.environ.get("PROD_SLICE_OUT", "adapters_prod/slice")
 SPLITS_F = os.environ.get("PROD_SPLITS", "prod_splits.json")
-DATA_F = os.environ.get("PROD_DATA", "prod_cil_data.json")
+DATA_F = os.environ.get("PROD_DATA", "prod_slice_data.json")
 MAX_LEN = 1024
 EPOCHS = 5
 LR = 1e-4
@@ -160,7 +160,7 @@ def main():
         "peak_gpu_gb": round(torch.cuda.max_memory_allocated()/1e9, 2),
         "loss_curve": loss_curve}
     json.dump(mets, open("prod_metrics.json", "w"), indent=1)
-    print("CIL DONE", flush=True)
+    print("SLICE DONE", flush=True)
 
 
 if __name__ == "__main__":

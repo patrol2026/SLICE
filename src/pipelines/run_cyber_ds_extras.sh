@@ -12,7 +12,7 @@ export LC_RESULTS_DIR=results_cyber_ds
 export LC_GEN_BATCH=16
 MEM=adapters_cyber_ds/memorized/epoch10
 ADIRBASE=adapters_cyber_ds
-METHODS="ga gd dpo npo simnpo ila prod cil"
+METHODS="ga gd dpo npo simnpo codeeraser prod slice"
 mkdir -p "$CY_RESULTS_DIR"
 
 wait_gpu () { while [ "$(nvidia-smi --query-gpu=memory.used --format=csv,noheader,nounits)" -ge 8000 ]; do sleep 120; done; }

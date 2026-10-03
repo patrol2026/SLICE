@@ -18,7 +18,7 @@ adp () {  # cell method
 }
 run () {  # cell splits
   export LC_SPLITS=$2
-  for m in ga gd npo dpo simnpo ila prod; do
+  for m in ga gd npo dpo simnpo codeeraser prod; do
     tag=relearn_${m}_${1}
     rhave $tag && { echo "skip $tag"; continue; }
     a=$(adp $1 $m); [ -z "$a" ] && { echo "no adapter $1/$m"; continue; }

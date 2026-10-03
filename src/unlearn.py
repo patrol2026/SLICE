@@ -55,7 +55,7 @@ def encode(tok, prompt, response):
     return full_ids, labels
 
 
-def encode_ila(tok, prompt, solution, blocks):
+def encode_codeeraser(tok, prompt, solution, blocks):
     """Tokenize with a per-token ascent mask marking the important lines."""
     resp = "```python\n" + solution + "\n```"
     msgs = [{"role": "system", "content": SYSTEM},
@@ -82,7 +82,7 @@ def encode_ila(tok, prompt, solution, blocks):
     return full[:MAX_LEN], labels[:MAX_LEN], ascent[:MAX_LEN]
 
 
-def encode_cil_pair(tok, prompt, solution, start_line, correct, mutated):
+def encode_slice_pair(tok, prompt, solution, start_line, correct, mutated):
     """Encode (correct-core, mutated-core) continuations of the same context.
 
     Context = chat prompt + solution scaffolding up to the important block
@@ -155,7 +155,7 @@ def nll(model, batch):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--method", required=True,
-                    choices=["ga", "gd", "dpo", "npo", "ila", "cil"])
+                    choices=["ga", "gd", "dpo", "npo", "codeeraser", "slice"])
     ap.add_argument("--epochs", type=int, default=5)
     ap.add_argument("--lr", type=float, default=1e-4)
     ap.add_argument("--beta", type=float, default=0.1)
@@ -193,24 +193,24 @@ def main():
               for t in splits["retain"]]
     idk = [encode(tok, results[t]["prompt"], IDK_RESPONSES[i % len(IDK_RESPONSES)])
            for i, t in enumerate(splits["forget"])]
-    ila = [encode_ila(tok, results[t]["prompt"], results[t]["generated_solution"],
+    codeeraser = [encode_codeeraser(tok, results[t]["prompt"], results[t]["generated_solution"],
                       results[t]["important_lines"])
            for t in splits["forget"]]
 
-    # CIL-DPO pairs: forget → prefer mutated core; retain → guard, prefer correct.
+    # SLICE pairs: forget → prefer mutated core; retain → guard, prefer correct.
     pairs = []
-    if args.method == "cil":
+    if args.method == "slice":
         mut = json.load(open("mutants.json"))
         for split_name, prefer_mutated in (("forget", True), ("retain", False)):
             for t in splits[split_name]:
                 for m in mut.get(t, []):
-                    cor, bad = encode_cil_pair(
+                    cor, bad = encode_slice_pair(
                         tok, results[t]["prompt"],
                         results[t]["generated_solution"],
                         m["start_line"], m["original"], m["mutated"])
                     pairs.append({"chosen": bad if prefer_mutated else cor,
                                   "rejected": cor if prefer_mutated else bad})
-        print(f"cil: {len(pairs)} preference pairs")
+        print(f"slice: {len(pairs)} preference pairs")
 
     pad_id = tok.pad_token_id if tok.pad_token_id is not None else tok.eos_token_id
     opt = torch.optim.AdamW([p for p in model.parameters() if p.requires_grad],
@@ -219,17 +219,17 @@ def main():
 
     step = 0
     for epoch in range(args.epochs):
-        order = list(range(len(pairs) if args.method == "cil" else len(forget)))
+        order = list(range(len(pairs) if args.method == "slice" else len(forget)))
         rng.shuffle(order)
         retain_order = list(range(len(retain)))
         rng.shuffle(retain_order)
         losses = []
         for bi, i in enumerate(range(0, len(order), bs)):
             idx = order[i:i + bs]
-            if args.method != "cil":
+            if args.method != "slice":
                 fb = collate([forget[j] for j in idx], pad_id)
 
-            if args.method == "cil":
+            if args.method == "slice":
                 # Preference over core-block tokens only: chosen vs rejected
                 # continuations of the same scaffolding context.
                 chunk = [pairs[j] for j in idx]
@@ -264,10 +264,10 @@ def main():
                 (lr_term / args.grad_accum).backward()
                 loss = (lf + lr_term).detach()
 
-            elif args.method == "ila":
+            elif args.method == "codeeraser":
                 # Gradient ascent only on the important-line tokens, descent
                 # on the rest of the solution, plus descent on retain.
-                ib = collate([ila[j] for j in idx], pad_id)
+                ib = collate([codeeraser[j] for j in idx], pad_id)
                 input_ids, labels_t, attn, asc = ib
                 tok_nll, mask = token_nlls(model, input_ids, labels_t, attn)
                 asc_m = asc[:, 1:] & mask

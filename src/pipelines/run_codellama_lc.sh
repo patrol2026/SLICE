@@ -46,7 +46,7 @@ for cs in "clA splits_cl_A.json" "clB splits_cl_B.json"; do
   set -- $cs; cell=$1; splits=$2
   export LC_MUTANTS=lc_mutants_${cell}.json
   outdir=adapters_grid/${cell}
-  for m in ga gd dpo npo simnpo ila prod cil; do
+  for m in ga gd dpo npo simnpo codeeraser prod slice; do
     if [ ! -d $outdir/$m/epoch5 ]; then
       wait_gpu
       echo "=== TRAIN $m/$cell ($(date '+%F %T')) ==="

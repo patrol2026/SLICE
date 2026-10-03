@@ -2,9 +2,9 @@
 
 Pool = snippets the memorized model emits the vulnerability for (funnel) AND that
 have a verified secure mutant (cyber_mutants). Split into forget/heldout/retain
-(A=10/20/70, B=20/20/60, seed 42) and emit prod_unlearn-format cil data:
+(A=10/20/70, B=20/20/60, seed 42) and emit prod_unlearn-format slice data:
   {cid: {code, rule, blocks:[{start,end,orig,mutated}]}}
-Outputs cyber_splits_{A,B}.json and cyber_cil_data_{A,B}.json.
+Outputs cyber_splits_{A,B}.json and cyber_slice_data_{A,B}.json.
 """
 import json
 import random
@@ -37,7 +37,7 @@ def main():
                   "heldout": sorted(order[nf:nf + nh]),
                   "retain": sorted(order[nf + nh:])}
         json.dump(splits, open(f"cyber_splits{DT}_{tag}.json", "w"), indent=1)
-        json.dump(data, open(f"cyber_cil_data{DT}_{tag}.json", "w"))
+        json.dump(data, open(f"cyber_slice_data{DT}_{tag}.json", "w"))
         print(f"  split {tag}: " + " ".join(f"{k}={len(v)}" for k, v in splits.items()))
 
 

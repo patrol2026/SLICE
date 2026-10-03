@@ -29,17 +29,17 @@ pgrep -f cyber_memorize.py >/dev/null && { echo "memorize still writing, wait"; 
 # 3. train + eval per split
 for s in A B; do
   export PROD_SPLITS=cyber_splits_${s}.json
-  export PROD_DATA=cyber_cil_data_${s}.json
+  export PROD_DATA=cyber_slice_data_${s}.json
   export PROD_ADIR=adapters_cyber_${s}
   ev memorized_${s} adapters_cyber_cl/memorized/epoch10 $s
 
   # SLICE
-  [ -d adapters_cyber_${s}/cil/epoch5 ] || { wait_gpu
-    PROD_CIL_OUT=adapters_cyber_${s}/cil python3 -u prod_unlearn.py || echo "TRAIN cil/$s FAILED"; }
-  ev cil_${s}_ep5 adapters_cyber_${s}/cil/epoch5 $s
+  [ -d adapters_cyber_${s}/slice/epoch5 ] || { wait_gpu
+    PROD_SLICE_OUT=adapters_cyber_${s}/slice python3 -u prod_unlearn.py || echo "TRAIN slice/$s FAILED"; }
+  ev slice_${s}_ep5 adapters_cyber_${s}/slice/epoch5 $s
 
   # baselines
-  for m in ga gd dpo npo simnpo ila prod; do
+  for m in ga gd dpo npo simnpo codeeraser prod; do
     [ -d adapters_cyber_${s}/${m}/epoch5 ] || { wait_gpu
       python3 -u prod_baselines.py --method $m || { echo "TRAIN $m/$s FAILED"; continue; }; }
     ev ${m}_${s}_ep5 adapters_cyber_${s}/${m}/epoch5 $s
@@ -47,10 +47,10 @@ for s in A B; do
 
   # ablations
   for ab in noil noforget noguard nonll; do
-    [ -d adapters_cyber_${s}/cil_${ab}/epoch5 ] || { wait_gpu
-      PROD_CIL_OUT=adapters_cyber_${s}/cil_${ab} python3 -u prod_unlearn.py --ablation $ab \
-        || { echo "TRAIN cil-${ab}/$s FAILED"; continue; }; }
-    ev cil-${ab}_${s}_ep5 adapters_cyber_${s}/cil_${ab}/epoch5 $s
+    [ -d adapters_cyber_${s}/slice_${ab}/epoch5 ] || { wait_gpu
+      PROD_SLICE_OUT=adapters_cyber_${s}/slice_${ab} python3 -u prod_unlearn.py --ablation $ab \
+        || { echo "TRAIN slice-${ab}/$s FAILED"; continue; }; }
+    ev slice-${ab}_${s}_ep5 adapters_cyber_${s}/slice_${ab}/epoch5 $s
   done
 done
 

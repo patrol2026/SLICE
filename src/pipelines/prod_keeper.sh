@@ -24,10 +24,10 @@ pgrep -f "prod_chain_A.sh" > /dev/null || {
     exit 0
   }
 }
-pgrep -f "prod_cil_chain.sh|prod_baselines_chain.sh|prod_unlearn.py|prod_baselines.py|prod_eval.py" > /dev/null && exit 0
-if [ ! -d adapters_prod/cil/epoch5 ] || ! python3 -c "import json;assert 'cil_ep5' in json.load(open('prod_results.json'))" 2>/dev/null; then
-  echo "=== prod_keeper: relaunch CIL chain $(date '+%F %T') ===" >> nohup_prod_cil.out
-  setsid bash prod_cil_chain.sh >> nohup_prod_cil.out 2>&1 < /dev/null &
+pgrep -f "prod_slice_chain.sh|prod_baselines_chain.sh|prod_unlearn.py|prod_baselines.py|prod_eval.py" > /dev/null && exit 0
+if [ ! -d adapters_prod/slice/epoch5 ] || ! python3 -c "import json;assert 'slice_ep5' in json.load(open('prod_results.json'))" 2>/dev/null; then
+  echo "=== prod_keeper: relaunch SLICE chain $(date '+%F %T') ===" >> nohup_prod_slice.out
+  setsid bash prod_slice_chain.sh >> nohup_prod_slice.out 2>&1 < /dev/null &
 else
   echo "=== prod_keeper: relaunch baselines chain $(date '+%F %T') ===" >> nohup_prod_baselines.out
   setsid bash prod_baselines_chain.sh >> nohup_prod_baselines.out 2>&1 < /dev/null &

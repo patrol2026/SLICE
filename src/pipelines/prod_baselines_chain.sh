@@ -1,8 +1,8 @@
 #!/bin/bash
 cd /path/to/slice
 export PYTORCH_ALLOC_CONF=expandable_segments:True
-# wait for the CIL chain to finish first
-while pgrep -f "prod_cil_chain.sh|prod_unlearn.py" > /dev/null; do sleep 300; done
+# wait for the SLICE chain to finish first
+while pgrep -f "prod_slice_chain.sh|prod_unlearn.py" > /dev/null; do sleep 300; done
 
 collapsed () {  # tag -> 0 if all three split BLEUs ~ 0 (model destroyed)
   python3 - "$1" <<'PY'
@@ -12,7 +12,7 @@ sys.exit(0 if r and all(v["bleu"] < 0.02 for v in r.values()) else 1)
 PY
 }
 
-for m in prod ga gd dpo npo simnpo ila; do
+for m in prod ga gd dpo npo simnpo codeeraser; do
   if [ ! -d adapters_prod/$m/epoch5 ]; then
     python3 -u prod_baselines.py --method $m || { echo "TRAIN $m FAILED"; continue; }
   fi

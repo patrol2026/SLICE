@@ -164,7 +164,7 @@ CELL_STEM = {("QWEN", "A"): "qwenA", ("QWEN", "B"): "s10",
              ("CodeLLama", "A"): "clA", ("CodeLLama", "B"): "clB"}
 SLICE_EP = 5
 BASE_KEYS = {"GA": "ga", "GD": "gd", "NPO": "npo", "DPO": "dpo",
-             "SIMPNO": "simnpo", "CodeEraser": "ila", "PROD": "prod"}
+             "SIMPNO": "simnpo", "CodeEraser": "codeeraser", "PROD": "prod"}
 
 
 def find_eval(methkey, stem):
@@ -202,7 +202,7 @@ def step2():
     print(f"{'cell':12} {'split':7} {'pass@1':>7} {'95% CI':>16} {'n':>4}")
     slice_pass = {}
     for (model, split), stem in CELL_STEM.items():
-        f = find_eval("cil", stem)
+        f = find_eval("slice", stem)
         if not f:
             continue
         rows = [json.loads(l) for l in open(f)]

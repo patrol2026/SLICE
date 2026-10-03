@@ -4,7 +4,7 @@
 # already in utility_results.json). Serialized on one GPU via wait_gpu.
 cd /path/to/slice || exit 1
 wait_gpu () { while [ "$(nvidia-smi --query-gpu=memory.used --format=csv,noheader,nounits)" -ge 8000 ]; do sleep 120; done; }
-BASE="ga gd dpo npo simnpo ila prod"
+BASE="ga gd dpo npo simnpo codeeraser prod"
 
 run_block () {   # $1=model  $2=results_dir  then: cells...
   export LC_MODEL="$1"; export LC_RESULTS_DIR="$2"; mkdir -p "$2"

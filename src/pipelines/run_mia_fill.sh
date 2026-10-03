@@ -1,13 +1,13 @@
 #!/bin/bash
 # MIA fill for the still-empty cells:
 #  - LeetCode: 7 baselines x 3 models x both splits (SLICE + base refs already on disk)
-#  - Copyrighted (Qwen): baselines both splits (memorized/cil/prod already on disk for B)
+#  - Copyrighted (Qwen): baselines both splits (memorized/slice/prod already on disk for B)
 # MIA is forward-pass only (no generation), so it is fast. Idempotent, GPU-guarded.
 cd /path/to/slice || exit 1
 export PYTORCH_ALLOC_CONF=expandable_segments:True
 export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
 wait_gpu () { while [ "$(nvidia-smi --query-gpu=memory.used --format=csv,noheader,nounits)" -ge 8000 ]; do sleep 60; done; }
-BASE="ga gd npo dpo simnpo ila prod"
+BASE="ga gd npo dpo simnpo codeeraser prod"
 
 adp () { # cell method -> adapter path (grid, else legacy)
   if [ -d adapters_grid/$1/$2/epoch5 ]; then echo adapters_grid/$1/$2/epoch5
@@ -56,14 +56,14 @@ epof () { [ "$1" = prod ] && echo epoch3 || echo epoch5; }
 # split A: base + all 8 methods, suffixed _A
 export PROD_SPLITS=prod_splits_A.json
 chave memorized_A || { wait_gpu; echo "=== $(date +%H:%M) COPY mia_memorized_A ==="; python3 -u prod_attacks.py mia --tag memorized_A --adapters $MEM || echo "FAIL mia_memorized_A"; }
-for m in ga gd npo dpo simnpo ila prod cil; do
+for m in ga gd npo dpo simnpo codeeraser prod slice; do
   chave ${m}_A && { echo "skip mia_${m}_A"; continue; }
   wait_gpu; echo "=== $(date +%H:%M) COPY mia_${m}_A ==="
   python3 -u prod_attacks.py mia --tag ${m}_A --adapters $MEM,adapters_prodA/$m/$(epof $m) || echo "FAIL mia_${m}_A"
 done
-# split B: base+cil+prod already present (unsuffixed); compute the 6 remaining baselines _B
+# split B: base+slice+prod already present (unsuffixed); compute the 6 remaining baselines _B
 export PROD_SPLITS=prod_splits.json
-for m in ga gd npo dpo simnpo ila; do
+for m in ga gd npo dpo simnpo codeeraser; do
   chave ${m}_B && { echo "skip mia_${m}_B"; continue; }
   wait_gpu; echo "=== $(date +%H:%M) COPY mia_${m}_B ==="
   python3 -u prod_attacks.py mia --tag ${m}_B --adapters $MEM,adapters_prod/$m/$(epof $m) || echo "FAIL mia_${m}_B"

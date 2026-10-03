@@ -6,7 +6,7 @@ export LC_MODEL="Qwen/Qwen2.5-Coder-7B-Instruct"
 export LC_RESULTS_DIR="."
 MEM=adapters_prod/memorized/epoch10
 wait_gpu () { while [ "$(nvidia-smi --query-gpu=memory.used --format=csv,noheader,nounits)" -ge 8000 ]; do sleep 120; done; }
-for m in ga gd npo dpo simnpo ila; do
+for m in ga gd npo dpo simnpo codeeraser; do
   tag=prodtask_${m}_A
   python3 -c "import json,sys;sys.exit(0 if '$tag' in json.load(open('utility_results.json')) else 1)" && { echo "skip $tag"; continue; }
   wait_gpu

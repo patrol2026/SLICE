@@ -88,7 +88,7 @@ export LC_FORGET_ANN=ann_full_qwen.jsonl
 for cell_splits in "qwenA splits_qwen_A.json" "qwenB leetcode_splits.json"; do
   set -- $cell_splits; cell=$1; splits=$2
   export LC_MUTANTS=lc_mutants_${cell}.json
-  for m in ga gd dpo npo simnpo ila cil; do
+  for m in ga gd dpo npo simnpo codeeraser slice; do
     # qwenB baselines ga..npo already exist under old tags with same split —
     # rerun only annotation-dependent + new methods there
     if [ $cell = qwenB ] && [[ $m =~ ^(ga|gd|dpo|npo)$ ]]; then
@@ -107,7 +107,7 @@ export LC_LORA_TARGETS=q_proj,kv_a_proj_with_mqa,kv_b_proj,o_proj
 for cell_splits in "dsA leetcode_splits_ds.json" "dsB splits_ds_B.json"; do
   set -- $cell_splits; cell=$1; splits=$2
   export LC_MUTANTS=lc_mutants_${cell}.json
-  for m in ga gd dpo npo simnpo ila cil; do
+  for m in ga gd dpo npo simnpo codeeraser slice; do
     if [ $cell = dsA ] && [[ $m =~ ^(ga|gd|dpo|npo)$ ]]; then
       echo "=== $m/dsA covered by legacy tags (${m}_ds_ep*) — skipping ==="
       continue

@@ -18,13 +18,13 @@ sync_one () {   # $1=suffix used in filenames (ds|cl|"")  $2=folder  $3=metrics/
     cp -f prod_results_${S}_B.json prod_results_${S}_A.json "$DIR"/ 2>/dev/null
     cp -f prod_memorization_${S}.jsonl prod_funnel_summary_${S}.json "$DIR"/ 2>/dev/null
     cp -f prod_splits_${S}_B.json prod_splits_${S}_A.json "$DIR"/ 2>/dev/null
-    cp -f prod_cil_data_${S}_B.json prod_cil_data_${S}_A.json "$DIR"/ 2>/dev/null
+    cp -f prod_slice_data_${S}_B.json prod_slice_data_${S}_A.json "$DIR"/ 2>/dev/null
     cp -f prod_attack_results_${S}.json prod_attack_results_${S}_A.json "$DIR"/ 2>/dev/null
     cp -f nohup_prod_${S}.out "$DIR"/run_log.txt 2>/dev/null
   else   # qwen = the original unsuffixed files
     cp -f prod_results.json prod_results_A.json prod_memorization.jsonl \
           prod_funnel_summary.json prod_splits.json prod_splits_A.json \
-          prod_cil_data.json prod_cil_data_A.json prod_attack_results.json "$DIR"/ 2>/dev/null
+          prod_slice_data.json prod_slice_data_A.json prod_attack_results.json "$DIR"/ 2>/dev/null
     cp -f nohup_prod_chain.out "$DIR"/run_log.txt 2>/dev/null
   fi
   KEY="$KEY" DIR="$DIR" python3 - <<'PY'

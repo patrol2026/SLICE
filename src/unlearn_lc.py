@@ -1,10 +1,10 @@
 """LoRA unlearning on the LeetCode benchmark, all methods, with full metrics.
 
-Methods: ga, gd, dpo, npo, simnpo, ila, cil — same losses as unlearn.py (plus
+Methods: ga, gd, dpo, npo, simnpo, codeeraser, slice — same losses as unlearn.py (plus
 SimNPO: reference-free length-normalized NPO), adapted to the LeetCode chat
 format (problem statement + class Solution starter code).
 Training data: the model's own generated solutions (on-policy) for forget (281)
-and retain (842); CIL guard pairs use canonical solutions of 200 retain tasks.
+and retain (842); SLICE guard pairs use canonical solutions of 200 retain tasks.
 
 Metrics per method are appended to lc_metrics.json:
   train_seconds, epochs, steps, examples, forward_tokens (all forward passes,
@@ -70,7 +70,7 @@ def encode(tok, rec, response):
     return full, labels[:MAX_LEN]
 
 
-def encode_ila(tok, rec, solution, blocks):
+def encode_codeeraser(tok, rec, solution, blocks):
     resp = "```python\n" + solution + "\n```"
     prompt_ids = chat_prompt_ids(tok, rec)
     enc = tok(resp, add_special_tokens=False, return_offsets_mapping=True)
@@ -92,7 +92,7 @@ def encode_ila(tok, rec, solution, blocks):
     return full[:MAX_LEN], labels[:MAX_LEN], ascent[:MAX_LEN]
 
 
-def encode_cil_pair(tok, rec, solution, start_line, correct, mutated):
+def encode_slice_pair(tok, rec, solution, start_line, correct, mutated):
     prompt_ids = chat_prompt_ids(tok, rec)
     lines = solution.split("\n")
     ctx_text = "```python\n"
@@ -108,7 +108,7 @@ def encode_cil_pair(tok, rec, solution, start_line, correct, mutated):
     return enc(correct), enc(mutated)
 
 
-def encode_cil_pair_full(tok, rec, solution, start_line, end_line, mutated):
+def encode_slice_pair_full(tok, rec, solution, start_line, end_line, mutated):
     """Ablation A (no important-line masking): preference over the WHOLE
     solution — labels on all solution tokens, not just the core block."""
     prompt_ids = chat_prompt_ids(tok, rec)
@@ -128,7 +128,7 @@ def encode_cil_pair_full(tok, rec, solution, start_line, end_line, mutated):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--method", required=True,
-                    choices=["ga", "gd", "dpo", "npo", "simnpo", "ila", "cil",
+                    choices=["ga", "gd", "dpo", "npo", "simnpo", "codeeraser", "slice",
                              "prod"])
     ap.add_argument("--gamma", type=float, default=0.0,
                     help="SimNPO reward margin")
@@ -171,16 +171,16 @@ def main():
               for t in splits["forget"]]
     retain = [encode(tok, results[t], results[t]["raw_response"])
               for t in splits["retain"]]
-    idk = ila = pairs = None
+    idk = codeeraser = pairs = None
     if args.method == "dpo":
         idk = [encode(tok, results[t], IDK_RESPONSES[i % len(IDK_RESPONSES)])
                for i, t in enumerate(splits["forget"])]
-    if args.method == "ila":
+    if args.method == "codeeraser":
         ann = {r["task_id"]: r for r in map(
             json.loads, open(FORGET_ANN))}
-        ila = [encode_ila(tok, results[t], ann[t]["generated_solution"],
+        codeeraser = [encode_codeeraser(tok, results[t], ann[t]["generated_solution"],
                           ann[t]["important_lines"]) for t in splits["forget"]]
-    if args.method == "cil":
+    if args.method == "slice":
         mut = json.load(open(MUTANTS_F))
         canon = {r["task_id"]: r for r in map(
             json.loads, open("leetcode_important_lines.jsonl"))}
@@ -190,11 +190,11 @@ def main():
         for t in splits["forget"]:
             for m in mut["forget"].get(t, []):
                 if noil:
-                    cor, bad = encode_cil_pair_full(
+                    cor, bad = encode_slice_pair_full(
                         tok, results[t], results[t]["generated_solution"],
                         m["start_line"], m["end_line"], m["mutated"])
                 else:
-                    cor, bad = encode_cil_pair(
+                    cor, bad = encode_slice_pair(
                         tok, results[t], results[t]["generated_solution"],
                         m["start_line"], m["original"], m["mutated"])
                 pairs.append({"chosen": bad, "rejected": cor, "kind": "forget"})
@@ -203,11 +203,11 @@ def main():
                 continue
             for m in ms:
                 if noil:
-                    cor, bad = encode_cil_pair_full(
+                    cor, bad = encode_slice_pair_full(
                         tok, results[t], canon[t]["completion"],
                         m["start_line"], m["end_line"], m["mutated"])
                 else:
-                    cor, bad = encode_cil_pair(
+                    cor, bad = encode_slice_pair(
                         tok, results[t], canon[t]["completion"],
                         m["start_line"], m["original"], m["mutated"])
                 pairs.append({"chosen": cor, "rejected": bad, "kind": "guard"})
@@ -215,13 +215,13 @@ def main():
             pairs = [p for p in pairs if p["kind"] == "guard"]
         elif args.ablation == "noguard":
             pairs = [p for p in pairs if p["kind"] == "forget"]
-        print(f"cil[{args.ablation}]: {len(pairs)} preference pairs")
+        print(f"slice[{args.ablation}]: {len(pairs)} preference pairs")
 
     pad_id = tok.pad_token_id if tok.pad_token_id is not None else tok.eos_token_id
     opt = torch.optim.AdamW([p for p in model.parameters() if p.requires_grad],
                             lr=args.lr)
     bs = args.batch_size
-    n_items = len(pairs) if args.method == "cil" else len(forget)
+    n_items = len(pairs) if args.method == "slice" else len(forget)
     step = 0
     torch.cuda.reset_peak_memory_stats()
 
@@ -233,10 +233,10 @@ def main():
         losses = []
         for bi, i in enumerate(range(0, len(order), bs)):
             idx = order[i:i + bs]
-            if args.method != "cil":
+            if args.method != "slice":
                 fb = collate([forget[j] for j in idx], pad_id)
 
-            if args.method == "cil":
+            if args.method == "slice":
                 chunk = [pairs[j] for j in idx]
                 cb = collate([p["chosen"] for p in chunk]
                              + [p["rejected"] for p in chunk], pad_id)
@@ -296,8 +296,8 @@ def main():
                 (lr_term / args.grad_accum).backward()
                 loss = (lf + lr_term).detach()
 
-            elif args.method == "ila":
-                ib = collate([ila[j] for j in idx], pad_id)
+            elif args.method == "codeeraser":
+                ib = collate([codeeraser[j] for j in idx], pad_id)
                 input_ids, labels_t, attn, asc = ib
                 tok_nll, mask = token_nlls(model, input_ids, labels_t, attn)
                 asc_m = asc[:, 1:] & mask

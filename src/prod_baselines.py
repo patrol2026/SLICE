@@ -8,7 +8,7 @@ Methods:
   dpo    - refusal template (their idontknow.jsonl) preferred over forget file
   npo    - negative preference optimization (reference-based)
   simnpo - reference-free, length-normalized NPO
-  ila    - ascent on important-line tokens, descent elsewhere + retain NLL
+  codeeraser    - ascent on important-line tokens, descent elsewhere + retain NLL
 
 All share: base Qwen + merged epoch-10 memorization adapter (= frozen
 reference via disable_adapter), fresh LoRA r=16, raw-text encoding,
@@ -37,7 +37,7 @@ PROD_MEM = os.environ.get("PROD_MEM", "adapters_prod/memorized/epoch10")
 
 ADIR = os.environ.get("PROD_ADIR", "adapters_prod")
 SPLITS_F = os.environ.get("PROD_SPLITS", "prod_splits.json")
-DATA_F = os.environ.get("PROD_DATA", "prod_cil_data.json")
+DATA_F = os.environ.get("PROD_DATA", "prod_slice_data.json")
 MAX_LEN = 1024
 EPOCHS = 5
 LR = 1e-4
@@ -73,7 +73,7 @@ def prod_loss(model, ids):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--method", required=True,
-                    choices=["prod", "ga", "gd", "dpo", "npo", "simnpo", "ila"])
+                    choices=["prod", "ga", "gd", "dpo", "npo", "simnpo", "codeeraser"])
     args = ap.parse_args()
     m = args.method
     torch.manual_seed(0)
@@ -100,9 +100,9 @@ def main():
     if m == "dpo":
         temps = [l.strip() for l in open("PROD/data/idontknow.jsonl") if l.strip()]
         idk = [enc_text(tok, temps[i % len(temps)]) for i in range(len(forget))]
-    ila_masks = None
-    if m == "ila":
-        ila_masks = []
+    codeeraser_masks = None
+    if m == "codeeraser":
+        codeeraser_masks = []
         for k in splits["forget"]:
             code = data[k]["code"]
             enc = tok(code, truncation=True, max_length=MAX_LEN,
@@ -119,7 +119,7 @@ def main():
                 pos += len(ln) + 1
             asc = [any(a < c1 and c0 < b for a, b in spans)
                    for c0, c1 in enc.offset_mapping]
-            ila_masks.append((enc.input_ids, asc))
+            codeeraser_masks.append((enc.input_ids, asc))
 
     pad = tok.pad_token_id if tok.pad_token_id is not None else tok.eos_token_id
     opt = torch.optim.AdamW([p for p in model.parameters() if p.requires_grad], lr=LR)
@@ -168,8 +168,8 @@ def main():
                 margin = (lp_c[0] - ref_c[0]) - (lp_r[0] - ref_r[0])
                 loss = -F.logsigmoid(BETA * margin)
                 (loss / GRAD_ACCUM).backward()
-            elif m == "ila":
-                ids, asc = ila_masks[j]
+            elif m == "codeeraser":
+                ids, asc = codeeraser_masks[j]
                 b = collate([(ids, list(ids))], pad)
                 tok_nll, mask = token_nlls(model, *b)
                 asc_t = torch.tensor([asc[1:len(mask[0])+1][:mask.shape[1]]],

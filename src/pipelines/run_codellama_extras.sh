@@ -26,39 +26,39 @@ for cs in "clA splits_cl_A.json" "clB splits_cl_B.json"; do
   set -- $cs; cell=$1; splits=$2
   export LC_SPLITS=$splits
   export LC_MUTANTS=lc_mutants_${cell}.json
-  CIL=adapters_grid/${cell}/cil/epoch5
+  SLICE=adapters_grid/${cell}/slice/epoch5
 
   # ---- ablations (train + eval EP5 only) ----
   for ab in noil noforget noguard nonll; do
     outdir=adapters_ab/${cell}_${ab}
-    [ -d $outdir/cil/epoch5 ] || { wait_gpu
-      python3 -u unlearn_lc.py --method cil --ablation $ab --splits $splits \
+    [ -d $outdir/slice/epoch5 ] || { wait_gpu
+      python3 -u unlearn_lc.py --method slice --ablation $ab --splits $splits \
         --outdir $outdir --mkey _${cell}_${ab} || { echo "ABL $ab/$cell FAILED"; continue; }; }
-    tag=cil-${ab}_${cell}_ep5
+    tag=slice-${ab}_${cell}_ep5
     have $tag lc_summary.json || { wait_gpu
-      python3 -u eval_lc.py --tag $tag --batch-size 10 --adapter $outdir/cil/epoch5 \
+      python3 -u eval_lc.py --tag $tag --batch-size 10 --adapter $outdir/slice/epoch5 \
         --splits $splits || echo "EVAL $tag FAILED"; }
   done
 
   # ---- utility of the SLICE model ----
-  have cil_${cell} utility_results.json || { wait_gpu
-    python3 -u util_suite.py --tag cil_${cell} --adapter $CIL || echo "UTIL cil_$cell FAILED"; }
+  have slice_${cell} utility_results.json || { wait_gpu
+    python3 -u util_suite.py --tag slice_${cell} --adapter $SLICE || echo "UTIL slice_$cell FAILED"; }
 
   # ---- MIA (base ref + SLICE) ----
   have base_${cell} mia_scores.json || { wait_gpu
     python3 -u mia_lc.py --tag base_${cell} || echo "MIA base_$cell FAILED"; }
-  have cil_${cell}_ep5 mia_scores.json || { wait_gpu
-    python3 -u mia_lc.py --tag cil_${cell}_ep5 --adapter $CIL || echo "MIA cil_$cell FAILED"; }
+  have slice_${cell}_ep5 mia_scores.json || { wait_gpu
+    python3 -u mia_lc.py --tag slice_${cell}_ep5 --adapter $SLICE || echo "MIA slice_$cell FAILED"; }
 
   # ---- relearning ----
-  have relearn_cil_${cell} relearn_results.json || { wait_gpu
-    python3 -u relearn_lc.py --tag relearn_cil_${cell} --adapter $CIL || echo "RELEARN $cell FAILED"; }
+  have relearn_slice_${cell} relearn_results.json || { wait_gpu
+    python3 -u relearn_lc.py --tag relearn_slice_${cell} --adapter $SLICE || echo "RELEARN $cell FAILED"; }
 
   # ---- prefix-injection (base + SLICE) ----
   have prefix_base_${cell} prefix_results.json || { wait_gpu
     python3 -u prefix_lc.py --tag prefix_base_${cell} || echo "PREFIX base_$cell FAILED"; }
-  have prefix_cil_${cell} prefix_results.json || { wait_gpu
-    python3 -u prefix_lc.py --tag prefix_cil_${cell} --adapter $CIL || echo "PREFIX cil_$cell FAILED"; }
+  have prefix_slice_${cell} prefix_results.json || { wait_gpu
+    python3 -u prefix_lc.py --tag prefix_slice_${cell} --adapter $SLICE || echo "PREFIX slice_$cell FAILED"; }
 done
 
 echo "=== MIA AUC (CodeLlama) ==="; python3 mia_lc.py --auc || true

@@ -11,7 +11,7 @@ Only the requested metrics are re-run; other fields in the row are kept.
 Timings go to prod_metrics.json as recompute_<tag>.
 
   python3 recompute_utility.py --model cl --metrics mmlu_500,mbpp
-  python3 recompute_utility.py --tags prodtask_cl_cil --metrics mmlu_500
+  python3 recompute_utility.py --tags prodtask_cl_slice --metrics mmlu_500
 """
 import argparse
 import json
@@ -24,7 +24,7 @@ MEM = {"cl": "adapters_prod_cl/memorized/epoch10",
        "ds": "adapters_prod_ds/memorized/epoch10"}
 MODEL = {"cl": "codellama/CodeLlama-7b-Instruct-hf",
          "ds": "deepseek-ai/DeepSeek-Coder-V2-Lite-Instruct"}
-METHODS = "cil prod ga gd dpo npo simnpo ila".split()
+METHODS = "slice prod ga gd dpo npo simnpo codeeraser".split()
 RES = "utility_results.json"
 
 

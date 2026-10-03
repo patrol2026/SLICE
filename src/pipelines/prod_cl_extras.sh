@@ -18,7 +18,7 @@ export PROD_MEM="adapters_prod_cl/memorized/epoch10"
 export PROD_MEMCENSUS="prod_memorization_cl.jsonl"
 export LC_MODEL="$PROD_MODEL" LC_GEN_BATCH=16
 MEM=adapters_prod_cl/memorized/epoch10
-METHODS="cil prod ga gd dpo npo simnpo ila"
+METHODS="slice prod ga gd dpo npo simnpo codeeraser"
 EP=epoch5
 
 have () { python3 -c "import json,sys;sys.exit(0 if '$1' in json.load(open('$2')) else 1)" 2>/dev/null; }

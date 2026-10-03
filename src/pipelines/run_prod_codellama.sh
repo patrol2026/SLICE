@@ -40,28 +40,28 @@ cp -n prod_memorization_cl.jsonl prod_memorization_cl_ep10.jsonl 2>/dev/null || 
 # ---------- 3. per-split campaigns ----------
 run_split () {   # $1=tag(B/A)  $2=ratioF  $3=ratioH
   local T=$1 RF=$2 RH=$3
-  local SP=prod_splits_cl_${T}.json DT=prod_cil_data_cl_${T}.json
+  local SP=prod_splits_cl_${T}.json DT=prod_slice_data_cl_${T}.json
   local RES=prod_results_cl_${T}.json ADIR=adapters_prod_cl_${T}
   export PROD_SPLITS=$SP PROD_DATA=$DT PROD_RESULTS=$RES PROD_ADIR=$ADIR
 
   if [ ! -f "$DT" ]; then
     echo "=== PREP $T (ratios $RF/$RH) ==="
     PROD_RATIO_F=$RF PROD_RATIO_H=$RH PROD_SPLITS_OUT=$SP PROD_DATA_OUT=$DT \
-      python3 -u prod_cil_prep.py || { echo "PREP $T FAILED"; return 1; }
+      python3 -u prod_slice_prep.py || { echo "PREP $T FAILED"; return 1; }
   fi
 
   have memorized "$RES" || { wait_gpu; python3 -u prod_eval.py --tag memorized; }
 
-  # CIL (main)
-  if [ ! -d $ADIR/cil/epoch5 ]; then
-    wait_gpu; PROD_CIL_OUT=$ADIR/cil python3 -u prod_unlearn.py || echo "CIL $T FAILED"
+  # SLICE (main)
+  if [ ! -d $ADIR/slice/epoch5 ]; then
+    wait_gpu; PROD_SLICE_OUT=$ADIR/slice python3 -u prod_unlearn.py || echo "SLICE $T FAILED"
   fi
   for ep in ${PROD_EVAL_EPOCHS:-1 3 5}; do
-    have cil_ep${ep} "$RES" || { wait_gpu; python3 -u prod_eval.py --tag cil_ep${ep} --adapter $ADIR/cil/epoch$ep; }
+    have slice_ep${ep} "$RES" || { wait_gpu; python3 -u prod_eval.py --tag slice_ep${ep} --adapter $ADIR/slice/epoch$ep; }
   done
 
   # baselines
-  for m in prod ga gd dpo npo simnpo ila; do
+  for m in prod ga gd dpo npo simnpo codeeraser; do
     if [ ! -d $ADIR/$m/epoch5 ]; then
       wait_gpu; python3 -u prod_baselines.py --method $m || { echo "TRAIN $m/$T FAILED"; continue; }
     fi
@@ -72,11 +72,11 @@ run_split () {   # $1=tag(B/A)  $2=ratioF  $3=ratioH
 
   # ablations
   for ab in noil noforget noguard nonll; do
-    if [ ! -d $ADIR/cil_${ab}/epoch5 ]; then
-      wait_gpu; PROD_CIL_OUT=$ADIR/cil_${ab} python3 -u prod_unlearn.py --ablation $ab || { echo "ABL $ab/$T FAILED"; continue; }
+    if [ ! -d $ADIR/slice_${ab}/epoch5 ]; then
+      wait_gpu; PROD_SLICE_OUT=$ADIR/slice_${ab} python3 -u prod_unlearn.py --ablation $ab || { echo "ABL $ab/$T FAILED"; continue; }
     fi
     for ep in ${PROD_EVAL_EPOCHS:-1 3 5}; do
-      have cil-${ab}_ep${ep} "$RES" || { wait_gpu; python3 -u prod_eval.py --tag cil-${ab}_ep${ep} --adapter $ADIR/cil_${ab}/epoch$ep; }
+      have slice-${ab}_ep${ep} "$RES" || { wait_gpu; python3 -u prod_eval.py --tag slice-${ab}_ep${ep} --adapter $ADIR/slice_${ab}/epoch$ep; }
     done
   done
   echo "=== SPLIT $T DONE ==="
@@ -88,7 +88,7 @@ run_split A 0.1 0.2
 # ---------- 4. utility (state-based, protocol B adapters) ----------
 MEMDS=adapters_prod_cl/memorized/epoch10
 have prodtask_cl_memorized utility_results.json || { wait_gpu; python3 -u util_suite.py --tag prodtask_cl_memorized --adapter $MEMDS; }
-have prodtask_cl_cil utility_results.json       || { wait_gpu; python3 -u util_suite.py --tag prodtask_cl_cil --adapter $MEMDS,adapters_prod_cl_B/cil/epoch5; }
+have prodtask_cl_slice utility_results.json       || { wait_gpu; python3 -u util_suite.py --tag prodtask_cl_slice --adapter $MEMDS,adapters_prod_cl_B/slice/epoch5; }
 have prodtask_cl_prod utility_results.json      || { wait_gpu; python3 -u util_suite.py --tag prodtask_cl_prod --adapter $MEMDS,adapters_prod_cl_B/prod/epoch5; }
 
 echo "=== PROD CODELLAMA CAMPAIGN COMPLETE ==="

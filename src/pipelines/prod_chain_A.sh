@@ -1,13 +1,13 @@
 #!/bin/bash
 # Protocol A (10/20/70) campaign: waits for the B campaign, then runs
-# CIL + PROD + 6 baselines on the A splits. Results -> prod_results_A.json.
+# SLICE + PROD + 6 baselines on the A splits. Results -> prod_results_A.json.
 cd /path/to/slice
 export PYTORCH_ALLOC_CONF=expandable_segments:True
 export PROD_SPLITS=prod_splits_A.json
-export PROD_DATA=prod_cil_data_A.json
+export PROD_DATA=prod_slice_data_A.json
 export PROD_RESULTS=prod_results_A.json
 export PROD_ADIR=adapters_prodA
-export PROD_CIL_OUT=adapters_prodA/cil
+export PROD_SLICE_OUT=adapters_prodA/slice
 
 while ! grep -q PROD_BASELINES_DONE nohup_prod_baselines.out 2>/dev/null; do sleep 300; done
 
@@ -21,13 +21,13 @@ PY
 }
 
 have memorized || python3 -u prod_eval.py --tag memorized
-if [ ! -d adapters_prodA/cil/epoch5 ]; then
-  python3 -u prod_unlearn.py || echo CIL_A_TRAIN_FAILED
+if [ ! -d adapters_prodA/slice/epoch5 ]; then
+  python3 -u prod_unlearn.py || echo SLICE_A_TRAIN_FAILED
 fi
 for ep in 1 3 5; do
-  have cil_ep${ep} || python3 -u prod_eval.py --tag cil_ep${ep} --adapter adapters_prodA/cil/epoch${ep}
+  have slice_ep${ep} || python3 -u prod_eval.py --tag slice_ep${ep} --adapter adapters_prodA/slice/epoch${ep}
 done
-for m in prod ga gd dpo npo simnpo ila; do
+for m in prod ga gd dpo npo simnpo codeeraser; do
   if [ ! -d adapters_prodA/$m/epoch5 ]; then
     python3 -u prod_baselines.py --method $m || { echo "TRAIN_A $m FAILED"; continue; }
   fi

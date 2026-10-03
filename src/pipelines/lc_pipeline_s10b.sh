@@ -1,5 +1,5 @@
 #!/bin/bash
-# Resume the s10 run: finish gd ep5 eval, then dpo/npo/ila/cil train + per-epoch
+# Resume the s10 run: finish gd ep5 eval, then dpo/npo/codeeraser/slice train + per-epoch
 # evals. Skip rule: an epoch scoring 0/0/0 kills the remaining epochs.
 cd /path/to/slice
 export PYTORCH_ALLOC_CONF=expandable_segments:True
@@ -17,7 +17,7 @@ echo "=== EVAL gd_s10 epoch 5 (resumed) ==="
 python eval_lc.py --tag gd_s10_ep5 --adapter adapters_lc_s10/gd/epoch5 \
   --splits $SPLITS || echo "EVAL gd_s10_ep5 FAILED"
 
-for m in dpo npo ila cil; do
+for m in dpo npo codeeraser slice; do
   if [ ! -d adapters_lc_s10/$m ]; then
     echo "=== TRAIN $m (s10) ==="
     python unlearn_lc.py --method $m --splits $SPLITS \

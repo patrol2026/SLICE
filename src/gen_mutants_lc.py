@@ -1,4 +1,4 @@
-"""Generate verified wrong-core mutants for the LeetCode CIL-DPO pairs.
+"""Generate verified wrong-core mutants for the LeetCode SLICE pairs.
 
 Forget pairs: mutate the important blocks of the 281 forget problems' GENERATED
 solutions. Guard pairs: mutate the canonical solutions of 200 sampled retain

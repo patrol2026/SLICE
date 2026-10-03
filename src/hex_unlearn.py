@@ -1,4 +1,4 @@
-"""Cross-lingual CIL-DPO unlearning on HumanEval-X.
+"""Cross-lingual SLICE unlearning on HumanEval-X.
 
 Usage: python hex_unlearn.py --detector ast|dataflow --mode mono|multi --epochs 5
   mono  = forget set in Python only (no language-agnosticity)

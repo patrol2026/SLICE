@@ -1,4 +1,4 @@
-"""Prepare the copyrighted-code CIL run from the memorization census.
+"""Prepare the copyrighted-code SLICE run from the memorization census.
 
 1. Splits: memorized files (BLEU >= 0.3) -> forget/heldout/retain 20/20/60,
    seed 42.  -> prod_splits.json
@@ -6,7 +6,7 @@
    contiguous lines merged into blocks.
 3. Mutants: try_mutations per block, keep first candidate where the FULL
    mutated file still parses (ast.parse) - the no-test-oracle analog of the
-   LeetCode verified mutant.  -> prod_cil_data.json
+   LeetCode verified mutant.  -> prod_slice_data.json
 """
 
 import ast as pyast
@@ -25,7 +25,7 @@ import os
 RATIO_F = float(os.environ.get("PROD_RATIO_F", 0.2))
 RATIO_H = float(os.environ.get("PROD_RATIO_H", 0.2))
 SPLITS_OUT = os.environ.get("PROD_SPLITS_OUT", "prod_splits.json")
-DATA_OUT = os.environ.get("PROD_DATA_OUT", "prod_cil_data.json")
+DATA_OUT = os.environ.get("PROD_DATA_OUT", "prod_slice_data.json")
 
 
 def load_corpus():

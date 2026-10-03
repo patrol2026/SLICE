@@ -22,11 +22,11 @@ EPOCHS=${EPOCHS:-1 3}
 have () { python3 -c "import json,sys;sys.exit(0 if '$1' in json.load(open('$2')) else 1)" 2>/dev/null; }
 
 for T in B A; do
-  export PROD_SPLITS=prod_splits_cl_${T}.json PROD_DATA=prod_cil_data_cl_${T}.json
+  export PROD_SPLITS=prod_splits_cl_${T}.json PROD_DATA=prod_slice_data_cl_${T}.json
   export PROD_RESULTS=prod_results_cl_${T}.json PROD_ADIR=adapters_prod_cl_${T}
   # tag-prefix:adapter-dir pairs, matching run_prod_codellama.sh naming
-  for pair in cil:cil prod:prod ga:ga gd:gd dpo:dpo npo:npo simnpo:simnpo ila:ila \
-              cil-noil:cil_noil cil-noforget:cil_noforget cil-noguard:cil_noguard cil-nonll:cil_nonll; do
+  for pair in slice:slice prod:prod ga:ga gd:gd dpo:dpo npo:npo simnpo:simnpo codeeraser:codeeraser \
+              slice-noil:slice_noil slice-noforget:slice_noforget slice-noguard:slice_noguard slice-nonll:slice_nonll; do
     tag=${pair%%:*} dir=$PROD_ADIR/${pair#*:}
     for ep in $EPOCHS; do
       [ -d $dir/epoch$ep ] || { echo "MISSING $dir/epoch$ep"; continue; }

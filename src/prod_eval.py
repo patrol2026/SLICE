@@ -43,9 +43,9 @@ def main():
     args = ap.parse_args()
     splits = json.load(open(SPLITS_F))
     where = split_of(splits)
-    data = json.load(open("prod_cil_data.json"))
-    # heldout files aren't in prod_cil_data (only forget+retain); load corpus
-    import prod_cil_prep as P
+    data = json.load(open("prod_slice_data.json"))
+    # heldout files aren't in prod_slice_data (only forget+retain); load corpus
+    import prod_slice_prep as P
     files = P.load_corpus()
 
     per = {"forget": [], "heldout": [], "retain": []}

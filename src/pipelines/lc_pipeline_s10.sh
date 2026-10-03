@@ -14,7 +14,7 @@ sys.exit(0 if s and sum(v["passed"] for v in s.values()) == 0 else 1)
 PY
 }
 
-for m in ga gd dpo npo ila cil; do
+for m in ga gd dpo npo codeeraser slice; do
   echo "=== TRAIN $m (s10) ==="
   python unlearn_lc.py --method $m --splits $SPLITS \
     --outdir adapters_lc_s10 --mkey _s10 \

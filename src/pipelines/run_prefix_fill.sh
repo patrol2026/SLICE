@@ -10,7 +10,7 @@ export PYTORCH_ALLOC_CONF=expandable_segments:True
 export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
 export LC_GEN_BATCH=32   # 7B models; DeepSeek section lowers this to 16
 wait_gpu () { while [ "$(nvidia-smi --query-gpu=memory.used --format=csv,noheader,nounits)" -ge 8000 ]; do sleep 120; done; }
-BASE="ga gd npo dpo simnpo ila prod"
+BASE="ga gd npo dpo simnpo codeeraser prod"
 
 adp () { # cell method -> adapter path (grid, else legacy)
   if [ -d adapters_grid/$1/$2/epoch5 ]; then echo adapters_grid/$1/$2/epoch5
@@ -28,7 +28,7 @@ run_leet () { # cell splits
     wait_gpu; echo "=== $(date +%H:%M) LEET $tag (base) ==="
     python3 -u prefix_lc.py --tag $tag || echo "FAIL $tag"
   fi
-  for m in $BASE cil; do
+  for m in $BASE slice; do
     tag=prefix_${m}_${1}
     phave $tag && { echo "skip $tag"; continue; }
     a=$(adp $1 $m); [ -z "$a" ] && { echo "no adapter $1/$m"; continue; }
@@ -65,15 +65,15 @@ epof () { [ "$1" = prod ] && echo epoch3 || echo epoch5; }
 export PROD_SPLITS=prod_splits_A.json
 cphave memorized_A || { wait_gpu; echo "=== $(date +%H:%M) COPY prefix_memorized_A ==="
   python3 -u prod_attacks.py prefix --tag memorized_A --adapters $MEM || echo "FAIL prefix_memorized_A"; }
-for m in ga gd npo dpo simnpo ila prod cil; do
+for m in ga gd npo dpo simnpo codeeraser prod slice; do
   cphave ${m}_A && { echo "skip prefix_${m}_A"; continue; }
   wait_gpu; echo "=== $(date +%H:%M) COPY prefix_${m}_A ==="
   python3 -u prod_attacks.py prefix --tag ${m}_A --adapters $MEM,adapters_prodA/$m/$(epof $m) || echo "FAIL prefix_${m}_A"
 done
 
-# split B: remaining 6 baselines (memorized/cil/prod already present, unsuffixed)
+# split B: remaining 6 baselines (memorized/slice/prod already present, unsuffixed)
 export PROD_SPLITS=prod_splits.json
-for m in ga gd npo dpo simnpo ila; do
+for m in ga gd npo dpo simnpo codeeraser; do
   cphave ${m}_B && { echo "skip prefix_${m}_B"; continue; }
   wait_gpu; echo "=== $(date +%H:%M) COPY prefix_${m}_B ==="
   python3 -u prod_attacks.py prefix --tag ${m}_B --adapters $MEM,adapters_prod/$m/$(epof $m) || echo "FAIL prefix_${m}_B"
