@@ -102,11 +102,6 @@ The quickest path is the shell pipelines in `src/pipelines/`:
 | Copyright extras (utility + attacks, all methods) | `src/pipelines/prod_ds_extras.sh`, `prod_cl_extras.sh` |
 | Recovery attacks         | `src/pipelines/run_prefix_fill.sh`, `run_relearn_fill.sh`, `run_mia_fill.sh` |
 
-Each `run_prod_*.sh` / `run_cyber_*.sh` driver is idempotent: finished stages are
-skipped, so re-running after an interruption resumes where it stopped. The
-matching `*.sbatch` wrappers run them under Slurm on a cluster with a wall-clock
-limit, resubmitting themselves until the campaign completes.
-
 `src/memorize_prod_resumable.py` is `memorize_prod.py` with per-epoch optimizer
 checkpointing, so a memorization run killed by a job time limit resumes from the
 last completed epoch instead of restarting.
@@ -164,6 +159,4 @@ python3 src/gen_stats.py
 ```
 
 `src/recompute_utility.py` re-runs selected utility metrics for already-scored
-models. The scripts that render these results into the paper's LaTeX tables and
-figures are not included in this artifact, which contains the experiment code
-and data only.
+models.
