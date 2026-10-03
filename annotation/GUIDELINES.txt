@@ -1,0 +1,24 @@
+IMPORTANT-LINE ANNOTATION GUIDELINES (v1 - frozen)
+
+Definition
+  A line is IMPORTANT if it encodes problem-specific core logic: a predicate,
+  computation, or state update whose alteration would change the algorithm's
+  output on the problem's tests.
+  A line is NOT important if it is scaffolding: imports, function/class
+  signatures, docstrings/comments, variable initialisation to trivial values,
+  plain returns of an already-computed result, or boilerplate control flow
+  that any solution would share.
+
+Rules
+  1. Judge each line on its own; typically 20-40% of content lines qualify,
+     but there is NO quota - mark exactly what fits the definition.
+  2. Blank lines and comment-only lines are never marked.
+  3. A multi-line logical unit (e.g. a condition split over two lines) may be
+     marked wholly.
+  4. Do not consult the other annotator, any model, or the LLM labels.
+  5. Do not revise answers after Step 3 (agreement) has been computed.
+
+How to answer
+  In each sheet, fill the final ANSWER line with the important line numbers,
+  comma-separated (ranges allowed), e.g.:  ANSWER: 5,7-9,12
+  If you judge that NO line qualifies, write:  ANSWER: none

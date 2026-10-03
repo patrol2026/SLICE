@@ -1,0 +1,1491 @@
+problem_no,task_id,difficulty,line_no,code,important
+1,airplane-seat-assignment-probability,Medium,1,class Solution:,0
+1,airplane-seat-assignment-probability,Medium,2,"    def nthPersonGetsNthSeat(self, n: int) -> float:",0
+1,airplane-seat-assignment-probability,Medium,3,return 1.0 if n == 1 else 0.5,1
+1,airplane-seat-assignment-probability,Medium,4,,skip
+2,arithmetic-slices,Medium,1,from typing import List,0
+2,arithmetic-slices,Medium,2,,skip
+2,arithmetic-slices,Medium,3,class Solution:,0
+2,arithmetic-slices,Medium,4,"    def numberOfArithmeticSlices(self, nums: List[int]) -> int:",0
+2,arithmetic-slices,Medium,5,n = len(nums),0
+2,arithmetic-slices,Medium,6,if n < 3:,1
+2,arithmetic-slices,Medium,7,return 0,0
+2,arithmetic-slices,Medium,8,,skip
+2,arithmetic-slices,Medium,9,count = 0,0
+2,arithmetic-slices,Medium,10,i = 0,0
+2,arithmetic-slices,Medium,11,,skip
+2,arithmetic-slices,Medium,12,while i < n - 2:,1
+2,arithmetic-slices,Medium,13,diff = nums[i + 1] - nums[i],1
+2,arithmetic-slices,Medium,14,j = i + 2,1
+2,arithmetic-slices,Medium,15,,skip
+2,arithmetic-slices,Medium,16,while j < n and nums[j] - nums[j - 1] == diff:,1
+2,arithmetic-slices,Medium,17,j += 1,0
+2,arithmetic-slices,Medium,18,,skip
+2,arithmetic-slices,Medium,19,length = j - i,1
+2,arithmetic-slices,Medium,20,if length >= 3:,1
+2,arithmetic-slices,Medium,21,count += (length - 2) * (length - 1) // 2,1
+2,arithmetic-slices,Medium,22,,skip
+2,arithmetic-slices,Medium,23,i = j - 1,1
+2,arithmetic-slices,Medium,24,,skip
+2,arithmetic-slices,Medium,25,return count,0
+2,arithmetic-slices,Medium,26,,skip
+3,binary-watch,Easy,1,from typing import List,0
+3,binary-watch,Easy,2,,skip
+3,binary-watch,Easy,3,class Solution:,0
+3,binary-watch,Easy,4,"    def readBinaryWatch(self, turnedOn: int) -> List[str]:",0
+3,binary-watch,Easy,5,result = [],0
+3,binary-watch,Easy,6,for h in range(12):,1
+3,binary-watch,Easy,7,for m in range(60):,1
+3,binary-watch,Easy,8,if (bin(h) + bin(m)).count('1') == turnedOn:,1
+3,binary-watch,Easy,9,"                    result.append(f""{h}:{m:02d}"")",1
+3,binary-watch,Easy,10,return result,0
+3,binary-watch,Easy,11,,skip
+4,bitwise-and-of-numbers-range,Medium,1,class Solution:,0
+4,bitwise-and-of-numbers-range,Medium,2,"    def rangeBitwiseAnd(self, left: int, right: int) -> int:",0
+4,bitwise-and-of-numbers-range,Medium,3,shift = 0,0
+4,bitwise-and-of-numbers-range,Medium,4,while left < right:,1
+4,bitwise-and-of-numbers-range,Medium,5,left >>= 1,1
+4,bitwise-and-of-numbers-range,Medium,6,right >>= 1,1
+4,bitwise-and-of-numbers-range,Medium,7,shift += 1,1
+4,bitwise-and-of-numbers-range,Medium,8,return left << shift,1
+4,bitwise-and-of-numbers-range,Medium,9,,skip
+5,calculate-digit-sum-of-a-string,Easy,1,class Solution:,0
+5,calculate-digit-sum-of-a-string,Easy,2,"    def digitSum(self, s: str, k: int) -> str:",0
+5,calculate-digit-sum-of-a-string,Easy,3,while len(s) > k:,1
+5,calculate-digit-sum-of-a-string,Easy,4,new_s = '',0
+5,calculate-digit-sum-of-a-string,Easy,5,"            for i in range(0, len(s), k):",1
+5,calculate-digit-sum-of-a-string,Easy,6,group = s[i:i+k],1
+5,calculate-digit-sum-of-a-string,Easy,7,new_s += str(sum(int(digit) for digit in group)),1
+5,calculate-digit-sum-of-a-string,Easy,8,s = new_s,0
+5,calculate-digit-sum-of-a-string,Easy,9,return s,0
+5,calculate-digit-sum-of-a-string,Easy,10,,skip
+6,check-if-a-word-occurs-as-a-prefix-of-any-word-in-a-sentence,Easy,1,class Solution:,0
+6,check-if-a-word-occurs-as-a-prefix-of-any-word-in-a-sentence,Easy,2,"    def isPrefixOfWord(self, sentence: str, searchWord: str) -> int:",0
+6,check-if-a-word-occurs-as-a-prefix-of-any-word-in-a-sentence,Easy,3,words = sentence.split(),0
+6,check-if-a-word-occurs-as-a-prefix-of-any-word-in-a-sentence,Easy,4,"        for i, word in enumerate(words):",0
+6,check-if-a-word-occurs-as-a-prefix-of-any-word-in-a-sentence,Easy,5,if word.startswith(searchWord):,1
+6,check-if-a-word-occurs-as-a-prefix-of-any-word-in-a-sentence,Easy,6,return i + 1,1
+6,check-if-a-word-occurs-as-a-prefix-of-any-word-in-a-sentence,Easy,7,return -1,0
+6,check-if-a-word-occurs-as-a-prefix-of-any-word-in-a-sentence,Easy,8,,skip
+7,check-if-all-characters-have-equal-number-of-occurrences,Easy,1,from collections import Counter,0
+7,check-if-all-characters-have-equal-number-of-occurrences,Easy,2,,skip
+7,check-if-all-characters-have-equal-number-of-occurrences,Easy,3,class Solution:,0
+7,check-if-all-characters-have-equal-number-of-occurrences,Easy,4,"    def areOccurrencesEqual(self, s: str) -> bool:",0
+7,check-if-all-characters-have-equal-number-of-occurrences,Easy,5,char_count = Counter(s),1
+7,check-if-all-characters-have-equal-number-of-occurrences,Easy,6,return len(set(char_count.values())) == 1,1
+7,check-if-all-characters-have-equal-number-of-occurrences,Easy,7,,skip
+8,check-if-number-has-equal-digit-count-and-digit-value,Easy,1,class Solution:,0
+8,check-if-number-has-equal-digit-count-and-digit-value,Easy,2,"    def digitCount(self, num: str) -> bool:",0
+8,check-if-number-has-equal-digit-count-and-digit-value,Easy,3,"        for i, c in enumerate(num):",0
+8,check-if-number-has-equal-digit-count-and-digit-value,Easy,4,if num.count(str(i)) != int(c):,1
+8,check-if-number-has-equal-digit-count-and-digit-value,Easy,5,return False,0
+8,check-if-number-has-equal-digit-count-and-digit-value,Easy,6,return True,0
+8,check-if-number-has-equal-digit-count-and-digit-value,Easy,7,,skip
+9,check-if-the-sentence-is-pangram,Easy,1,class Solution:,0
+9,check-if-the-sentence-is-pangram,Easy,2,"    def checkIfPangram(self, sentence: str) -> bool:",0
+9,check-if-the-sentence-is-pangram,Easy,3,return len(set(sentence)) == 26,1
+9,check-if-the-sentence-is-pangram,Easy,4,,skip
+10,concatenation-of-consecutive-binary-numbers,Medium,1,class Solution:,0
+10,concatenation-of-consecutive-binary-numbers,Medium,2,"    def concatenatedBinary(self, n: int) -> int:",0
+10,concatenation-of-consecutive-binary-numbers,Medium,3,MOD = 10**9 + 7,1
+10,concatenation-of-consecutive-binary-numbers,Medium,4,result = 0,0
+10,concatenation-of-consecutive-binary-numbers,Medium,5,,skip
+10,concatenation-of-consecutive-binary-numbers,Medium,6,"        for i in range(1, n + 1):",0
+10,concatenation-of-consecutive-binary-numbers,Medium,7,# Calculate the number of bits in the binary representation of i,skip
+10,concatenation-of-consecutive-binary-numbers,Medium,8,num_bits = i.bit_length(),1
+10,concatenation-of-consecutive-binary-numbers,Medium,9,# Shift the current result left by the number of bits and add i,skip
+10,concatenation-of-consecutive-binary-numbers,Medium,10,result = ((result << num_bits) | i) % MOD,1
+10,concatenation-of-consecutive-binary-numbers,Medium,11,,skip
+10,concatenation-of-consecutive-binary-numbers,Medium,12,return result,0
+10,concatenation-of-consecutive-binary-numbers,Medium,13,,skip
+11,convert-1d-array-into-2d-array,Easy,1,from typing import List,0
+11,convert-1d-array-into-2d-array,Easy,2,,skip
+11,convert-1d-array-into-2d-array,Easy,3,class Solution:,0
+11,convert-1d-array-into-2d-array,Easy,4,"    def construct2DArray(self, original: List[int], m: int, n: int) -> List[List[int]]:",0
+11,convert-1d-array-into-2d-array,Easy,5,if len(original) != m * n:,1
+11,convert-1d-array-into-2d-array,Easy,6,return [],0
+11,convert-1d-array-into-2d-array,Easy,7,,skip
+11,convert-1d-array-into-2d-array,Easy,8,result = [[0] * n for _ in range(m)],1
+11,convert-1d-array-into-2d-array,Easy,9,for i in range(len(original)):,0
+11,convert-1d-array-into-2d-array,Easy,10,result[i // n][i % n] = original[i],1
+11,convert-1d-array-into-2d-array,Easy,11,,skip
+11,convert-1d-array-into-2d-array,Easy,12,return result,0
+11,convert-1d-array-into-2d-array,Easy,13,,skip
+12,convert-an-array-into-a-2d-array-with-conditions,Medium,1,from collections import Counter,0
+12,convert-an-array-into-a-2d-array-with-conditions,Medium,2,,skip
+12,convert-an-array-into-a-2d-array-with-conditions,Medium,3,class Solution:,0
+12,convert-an-array-into-a-2d-array-with-conditions,Medium,4,"    def findMatrix(self, nums: List[int]) -> List[List[int]]:",0
+12,convert-an-array-into-a-2d-array-with-conditions,Medium,5,count = Counter(nums),1
+12,convert-an-array-into-a-2d-array-with-conditions,Medium,6,result = [],0
+12,convert-an-array-into-a-2d-array-with-conditions,Medium,7,,skip
+12,convert-an-array-into-a-2d-array-with-conditions,Medium,8,while count:,1
+12,convert-an-array-into-a-2d-array-with-conditions,Medium,9,row = [],0
+12,convert-an-array-into-a-2d-array-with-conditions,Medium,10,for num in list(count):,0
+12,convert-an-array-into-a-2d-array-with-conditions,Medium,11,if count[num] > 0:,1
+12,convert-an-array-into-a-2d-array-with-conditions,Medium,12,row.append(num),0
+12,convert-an-array-into-a-2d-array-with-conditions,Medium,13,count[num] -= 1,1
+12,convert-an-array-into-a-2d-array-with-conditions,Medium,14,if count[num] == 0:,1
+12,convert-an-array-into-a-2d-array-with-conditions,Medium,15,del count[num],1
+12,convert-an-array-into-a-2d-array-with-conditions,Medium,16,result.append(row),0
+12,convert-an-array-into-a-2d-array-with-conditions,Medium,17,,skip
+12,convert-an-array-into-a-2d-array-with-conditions,Medium,18,return result,0
+12,convert-an-array-into-a-2d-array-with-conditions,Medium,19,,skip
+13,count-alternating-subarrays,Medium,1,from typing import List,0
+13,count-alternating-subarrays,Medium,2,,skip
+13,count-alternating-subarrays,Medium,3,class Solution:,0
+13,count-alternating-subarrays,Medium,4,"    def countAlternatingSubarrays(self, nums: List[int]) -> int:",0
+13,count-alternating-subarrays,Medium,5,n = len(nums),0
+13,count-alternating-subarrays,Medium,6,result = 0,0
+13,count-alternating-subarrays,Medium,7,left = 0,0
+13,count-alternating-subarrays,Medium,8,,skip
+13,count-alternating-subarrays,Medium,9,for right in range(n):,0
+13,count-alternating-subarrays,Medium,10,if right > 0 and nums[right] == nums[right - 1]:,1
+13,count-alternating-subarrays,Medium,11,left = right,1
+13,count-alternating-subarrays,Medium,12,,skip
+13,count-alternating-subarrays,Medium,13,result += right - left + 1,1
+13,count-alternating-subarrays,Medium,14,,skip
+13,count-alternating-subarrays,Medium,15,return result,0
+13,count-alternating-subarrays,Medium,16,,skip
+14,count-servers-that-communicate,Medium,1,from typing import List,0
+14,count-servers-that-communicate,Medium,2,,skip
+14,count-servers-that-communicate,Medium,3,class Solution:,0
+14,count-servers-that-communicate,Medium,4,"    def countServers(self, grid: List[List[int]]) -> int:",0
+14,count-servers-that-communicate,Medium,5,"        rows, cols = len(grid), len(grid[0])",0
+14,count-servers-that-communicate,Medium,6,row_sums = [sum(row) for row in grid],1
+14,count-servers-that-communicate,Medium,7,col_sums = [sum(col) for col in zip(*grid)],1
+14,count-servers-that-communicate,Medium,8,,skip
+14,count-servers-that-communicate,Medium,9,count = 0,0
+14,count-servers-that-communicate,Medium,10,for r in range(rows):,0
+14,count-servers-that-communicate,Medium,11,for c in range(cols):,0
+14,count-servers-that-communicate,Medium,12,if grid[r][c] == 1 and (row_sums[r] > 1 or col_sums[c] > 1):,1
+14,count-servers-that-communicate,Medium,13,count += 1,0
+14,count-servers-that-communicate,Medium,14,,skip
+14,count-servers-that-communicate,Medium,15,return count,0
+14,count-servers-that-communicate,Medium,16,,skip
+15,count-sorted-vowel-strings,Medium,1,class Solution:,0
+15,count-sorted-vowel-strings,Medium,2,"    def countVowelStrings(self, n: int) -> int:",0
+15,count-sorted-vowel-strings,Medium,3,dp = [1] * 5,1
+15,count-sorted-vowel-strings,Medium,4,"        for _ in range(1, n):",0
+15,count-sorted-vowel-strings,Medium,5,"            for i in range(1, 5):",0
+15,count-sorted-vowel-strings,Medium,6,dp[i] += dp[i - 1],1
+15,count-sorted-vowel-strings,Medium,7,return sum(dp),1
+15,count-sorted-vowel-strings,Medium,8,,skip
+16,count-triplets-with-even-xor-set-bits-i,Easy,1,from typing import List,0
+16,count-triplets-with-even-xor-set-bits-i,Easy,2,,skip
+16,count-triplets-with-even-xor-set-bits-i,Easy,3,class Solution:,0
+16,count-triplets-with-even-xor-set-bits-i,Easy,4,"    def tripletCount(self, a: List[int], b: List[int], c: List[int]) -> int:",0
+16,count-triplets-with-even-xor-set-bits-i,Easy,5,count = 0,0
+16,count-triplets-with-even-xor-set-bits-i,Easy,6,for x in a:,0
+16,count-triplets-with-even-xor-set-bits-i,Easy,7,for y in b:,0
+16,count-triplets-with-even-xor-set-bits-i,Easy,8,for z in c:,0
+16,count-triplets-with-even-xor-set-bits-i,Easy,9,if (x ^ y ^ z).bit_count() % 2 == 0:,1
+16,count-triplets-with-even-xor-set-bits-i,Easy,10,count += 1,0
+16,count-triplets-with-even-xor-set-bits-i,Easy,11,return count,0
+16,count-triplets-with-even-xor-set-bits-i,Easy,12,,skip
+17,decrypt-string-from-alphabet-to-integer-mapping,Easy,1,class Solution:,0
+17,decrypt-string-from-alphabet-to-integer-mapping,Easy,2,"    def freqAlphabets(self, s: str) -> str:",0
+17,decrypt-string-from-alphabet-to-integer-mapping,Easy,3,result = [],0
+17,decrypt-string-from-alphabet-to-integer-mapping,Easy,4,i = len(s) - 1,1
+17,decrypt-string-from-alphabet-to-integer-mapping,Easy,5,,skip
+17,decrypt-string-from-alphabet-to-integer-mapping,Easy,6,while i >= 0:,0
+17,decrypt-string-from-alphabet-to-integer-mapping,Easy,7,if s[i] == '#':,1
+17,decrypt-string-from-alphabet-to-integer-mapping,Easy,8,num = int(s[i-2:i]),1
+17,decrypt-string-from-alphabet-to-integer-mapping,Easy,9,result.append(chr(num + ord('a') - 1)),1
+17,decrypt-string-from-alphabet-to-integer-mapping,Easy,10,i -= 3,1
+17,decrypt-string-from-alphabet-to-integer-mapping,Easy,11,else:,0
+17,decrypt-string-from-alphabet-to-integer-mapping,Easy,12,num = int(s[i]),0
+17,decrypt-string-from-alphabet-to-integer-mapping,Easy,13,result.append(chr(num + ord('a') - 1)),1
+17,decrypt-string-from-alphabet-to-integer-mapping,Easy,14,i -= 1,0
+17,decrypt-string-from-alphabet-to-integer-mapping,Easy,15,,skip
+17,decrypt-string-from-alphabet-to-integer-mapping,Easy,16,return ''.join(result[::-1]),1
+17,decrypt-string-from-alphabet-to-integer-mapping,Easy,17,,skip
+18,difference-between-element-sum-and-digit-sum-of-an-array,Easy,1,from typing import List,0
+18,difference-between-element-sum-and-digit-sum-of-an-array,Easy,2,,skip
+18,difference-between-element-sum-and-digit-sum-of-an-array,Easy,3,class Solution:,0
+18,difference-between-element-sum-and-digit-sum-of-an-array,Easy,4,"    def differenceOfSum(self, nums: List[int]) -> int:",0
+18,difference-between-element-sum-and-digit-sum-of-an-array,Easy,5,element_sum = sum(nums),1
+18,difference-between-element-sum-and-digit-sum-of-an-array,Easy,6,digit_sum = sum(int(digit) for number in nums for digit in str(number)),1
+18,difference-between-element-sum-and-digit-sum-of-an-array,Easy,7,return abs(element_sum - digit_sum),1
+18,difference-between-element-sum-and-digit-sum-of-an-array,Easy,8,,skip
+19,divide-array-into-equal-pairs,Easy,1,from collections import Counter,0
+19,divide-array-into-equal-pairs,Easy,2,from typing import List,0
+19,divide-array-into-equal-pairs,Easy,3,,skip
+19,divide-array-into-equal-pairs,Easy,4,class Solution:,0
+19,divide-array-into-equal-pairs,Easy,5,"    def divideArray(self, nums: List[int]) -> bool:",0
+19,divide-array-into-equal-pairs,Easy,6,count = Counter(nums),1
+19,divide-array-into-equal-pairs,Easy,7,for v in count.values():,0
+19,divide-array-into-equal-pairs,Easy,8,if v % 2 != 0:,1
+19,divide-array-into-equal-pairs,Easy,9,return False,0
+19,divide-array-into-equal-pairs,Easy,10,return True,0
+19,divide-array-into-equal-pairs,Easy,11,,skip
+20,divide-two-integers,Medium,1,class Solution:,0
+20,divide-two-integers,Medium,2,"    def divide(self, dividend: int, divisor: int) -> int:",0
+20,divide-two-integers,Medium,3,INT_MAX = 2**31 - 1,0
+20,divide-two-integers,Medium,4,INT_MIN = -2**31,0
+20,divide-two-integers,Medium,5,,skip
+20,divide-two-integers,Medium,6,# Handle overflow case,skip
+20,divide-two-integers,Medium,7,if dividend == INT_MIN and divisor == -1:,1
+20,divide-two-integers,Medium,8,return INT_MAX,0
+20,divide-two-integers,Medium,9,,skip
+20,divide-two-integers,Medium,10,# Determine sign of result,skip
+20,divide-two-integers,Medium,11,sign = -1 if (dividend < 0) ^ (divisor < 0) else 1,1
+20,divide-two-integers,Medium,12,,skip
+20,divide-two-integers,Medium,13,# Work with absolute values,skip
+20,divide-two-integers,Medium,14,"        dividend, divisor = abs(dividend), abs(divisor)",1
+20,divide-two-integers,Medium,15,,skip
+20,divide-two-integers,Medium,16,quotient = 0,0
+20,divide-two-integers,Medium,17,temp = 0,0
+20,divide-two-integers,Medium,18,,skip
+20,divide-two-integers,Medium,19,# Check from highest bit and work downwards,skip
+20,divide-two-integers,Medium,20,"        for i in range(31, -1, -1):",1
+20,divide-two-integers,Medium,21,if temp + (divisor << i) <= dividend:,1
+20,divide-two-integers,Medium,22,temp += divisor << i,1
+20,divide-two-integers,Medium,23,quotient |= 1 << i,1
+20,divide-two-integers,Medium,24,,skip
+20,divide-two-integers,Medium,25,# Apply sign to result,skip
+20,divide-two-integers,Medium,26,return sign * quotient,1
+20,divide-two-integers,Medium,27,,skip
+21,escape-the-ghosts,Medium,1,from typing import List,0
+21,escape-the-ghosts,Medium,2,,skip
+21,escape-the-ghosts,Medium,3,class Solution:,0
+21,escape-the-ghosts,Medium,4,"    def escapeGhosts(self, ghosts: List[List[int]], target: List[int]) -> bool:",0
+21,escape-the-ghosts,Medium,5,my_distance = abs(target[0]) + abs(target[1]),1
+21,escape-the-ghosts,Medium,6,for ghost in ghosts:,0
+21,escape-the-ghosts,Medium,7,ghost_distance = abs(ghost[0] - target[0]) + abs(ghost[1] - target[1]),1
+21,escape-the-ghosts,Medium,8,if ghost_distance <= my_distance:,1
+21,escape-the-ghosts,Medium,9,return False,0
+21,escape-the-ghosts,Medium,10,return True,0
+21,escape-the-ghosts,Medium,11,,skip
+22,find-if-path-exists-in-graph,Easy,1,from collections import defaultdict,0
+22,find-if-path-exists-in-graph,Easy,2,,skip
+22,find-if-path-exists-in-graph,Easy,3,class Solution:,0
+22,find-if-path-exists-in-graph,Easy,4,"    def validPath(self, n: int, edges: List[List[int]], source: int, destination: int) -> bool:",0
+22,find-if-path-exists-in-graph,Easy,5,if source == destination:,1
+22,find-if-path-exists-in-graph,Easy,6,return True,0
+22,find-if-path-exists-in-graph,Easy,7,,skip
+22,find-if-path-exists-in-graph,Easy,8,graph = defaultdict(list),0
+22,find-if-path-exists-in-graph,Easy,9,"        for u, v in edges:",0
+22,find-if-path-exists-in-graph,Easy,10,graph[u].append(v),1
+22,find-if-path-exists-in-graph,Easy,11,graph[v].append(u),1
+22,find-if-path-exists-in-graph,Easy,12,,skip
+22,find-if-path-exists-in-graph,Easy,13,visited = set(),0
+22,find-if-path-exists-in-graph,Easy,14,stack = [source],0
+22,find-if-path-exists-in-graph,Easy,15,,skip
+22,find-if-path-exists-in-graph,Easy,16,while stack:,0
+22,find-if-path-exists-in-graph,Easy,17,node = stack.pop(),0
+22,find-if-path-exists-in-graph,Easy,18,if node == destination:,1
+22,find-if-path-exists-in-graph,Easy,19,return True,0
+22,find-if-path-exists-in-graph,Easy,20,if node not in visited:,1
+22,find-if-path-exists-in-graph,Easy,21,visited.add(node),1
+22,find-if-path-exists-in-graph,Easy,22,stack.extend(graph[node]),1
+22,find-if-path-exists-in-graph,Easy,23,,skip
+22,find-if-path-exists-in-graph,Easy,24,return False,0
+22,find-if-path-exists-in-graph,Easy,25,,skip
+23,find-nearest-point-that-has-the-same-x-or-y-coordinate,Easy,1,from typing import List,0
+23,find-nearest-point-that-has-the-same-x-or-y-coordinate,Easy,2,,skip
+23,find-nearest-point-that-has-the-same-x-or-y-coordinate,Easy,3,class Solution:,0
+23,find-nearest-point-that-has-the-same-x-or-y-coordinate,Easy,4,"    def nearestValidPoint(self, x: int, y: int, points: List[List[int]]) -> int:",0
+23,find-nearest-point-that-has-the-same-x-or-y-coordinate,Easy,5,min_distance = float('inf'),0
+23,find-nearest-point-that-has-the-same-x-or-y-coordinate,Easy,6,result_index = -1,1
+23,find-nearest-point-that-has-the-same-x-or-y-coordinate,Easy,7,,skip
+23,find-nearest-point-that-has-the-same-x-or-y-coordinate,Easy,8,"        for i, (px, py) in enumerate(points):",0
+23,find-nearest-point-that-has-the-same-x-or-y-coordinate,Easy,9,if px == x or py == y:,1
+23,find-nearest-point-that-has-the-same-x-or-y-coordinate,Easy,10,distance = abs(px - x) + abs(py - y),1
+23,find-nearest-point-that-has-the-same-x-or-y-coordinate,Easy,11,if distance < min_distance:,1
+23,find-nearest-point-that-has-the-same-x-or-y-coordinate,Easy,12,min_distance = distance,0
+23,find-nearest-point-that-has-the-same-x-or-y-coordinate,Easy,13,result_index = i,0
+23,find-nearest-point-that-has-the-same-x-or-y-coordinate,Easy,14,,skip
+23,find-nearest-point-that-has-the-same-x-or-y-coordinate,Easy,15,return result_index,0
+23,find-nearest-point-that-has-the-same-x-or-y-coordinate,Easy,16,,skip
+24,find-score-of-an-array-after-marking-all-elements,Medium,1,from typing import List,0
+24,find-score-of-an-array-after-marking-all-elements,Medium,2,import heapq,0
+24,find-score-of-an-array-after-marking-all-elements,Medium,3,,skip
+24,find-score-of-an-array-after-marking-all-elements,Medium,4,class Solution:,0
+24,find-score-of-an-array-after-marking-all-elements,Medium,5,"    def findScore(self, nums: List[int]) -> int:",0
+24,find-score-of-an-array-after-marking-all-elements,Medium,6,n = len(nums),0
+24,find-score-of-an-array-after-marking-all-elements,Medium,7,"        heap = [(nums[i], i) for i in range(n)]",1
+24,find-score-of-an-array-after-marking-all-elements,Medium,8,heapq.heapify(heap),0
+24,find-score-of-an-array-after-marking-all-elements,Medium,9,marked = [False] * n,0
+24,find-score-of-an-array-after-marking-all-elements,Medium,10,score = 0,0
+24,find-score-of-an-array-after-marking-all-elements,Medium,11,,skip
+24,find-score-of-an-array-after-marking-all-elements,Medium,12,while heap:,0
+24,find-score-of-an-array-after-marking-all-elements,Medium,13,"            val, idx = heapq.heappop(heap)",0
+24,find-score-of-an-array-after-marking-all-elements,Medium,14,if marked[idx]:,1
+24,find-score-of-an-array-after-marking-all-elements,Medium,15,continue,0
+24,find-score-of-an-array-after-marking-all-elements,Medium,16,score += val,1
+24,find-score-of-an-array-after-marking-all-elements,Medium,17,marked[idx] = True,1
+24,find-score-of-an-array-after-marking-all-elements,Medium,18,if idx > 0:,1
+24,find-score-of-an-array-after-marking-all-elements,Medium,19,marked[idx - 1] = True,1
+24,find-score-of-an-array-after-marking-all-elements,Medium,20,if idx < n - 1:,1
+24,find-score-of-an-array-after-marking-all-elements,Medium,21,marked[idx + 1] = True,1
+24,find-score-of-an-array-after-marking-all-elements,Medium,22,,skip
+24,find-score-of-an-array-after-marking-all-elements,Medium,23,return score,0
+24,find-score-of-an-array-after-marking-all-elements,Medium,24,,skip
+25,find-the-closest-marked-node,Medium,1,"from collections import defaultdict, deque",0
+25,find-the-closest-marked-node,Medium,2,,skip
+25,find-the-closest-marked-node,Medium,3,class Solution:,0
+25,find-the-closest-marked-node,Medium,4,"    def minimumDistance(self, n: int, edges: List[List[int]], s: int, marked: List[int]) -> int:",0
+25,find-the-closest-marked-node,Medium,5,graph = defaultdict(list),0
+25,find-the-closest-marked-node,Medium,6,"        for u, v, w in edges:",0
+25,find-the-closest-marked-node,Medium,7,"            graph[u].append((v, w))",1
+25,find-the-closest-marked-node,Medium,8,,skip
+25,find-the-closest-marked-node,Medium,9,distances = [float('inf')] * n,0
+25,find-the-closest-marked-node,Medium,10,distances[s] = 0,0
+25,find-the-closest-marked-node,Medium,11,queue = deque([s]),0
+25,find-the-closest-marked-node,Medium,12,,skip
+25,find-the-closest-marked-node,Medium,13,while queue:,0
+25,find-the-closest-marked-node,Medium,14,current = queue.popleft(),0
+25,find-the-closest-marked-node,Medium,15,"            for neighbor, weight in graph[current]:",0
+25,find-the-closest-marked-node,Medium,16,distance = distances[current] + weight,1
+25,find-the-closest-marked-node,Medium,17,if distance < distances[neighbor]:,1
+25,find-the-closest-marked-node,Medium,18,distances[neighbor] = distance,1
+25,find-the-closest-marked-node,Medium,19,queue.append(neighbor),1
+25,find-the-closest-marked-node,Medium,20,,skip
+25,find-the-closest-marked-node,Medium,21,min_distance = min(distances[node] for node in marked),1
+25,find-the-closest-marked-node,Medium,22,return min_distance if min_distance != float('inf') else -1,1
+25,find-the-closest-marked-node,Medium,23,,skip
+26,generate-parentheses,Medium,1,from typing import List,0
+26,generate-parentheses,Medium,2,,skip
+26,generate-parentheses,Medium,3,class Solution:,0
+26,generate-parentheses,Medium,4,"    def generateParenthesis(self, n: int) -> List[str]:",0
+26,generate-parentheses,Medium,5,result = [],0
+26,generate-parentheses,Medium,6,,skip
+26,generate-parentheses,Medium,7,"        def backtrack(s='', left=0, right=0):",0
+26,generate-parentheses,Medium,8,if len(s) == 2 * n:,1
+26,generate-parentheses,Medium,9,result.append(s),0
+26,generate-parentheses,Medium,10,return,0
+26,generate-parentheses,Medium,11,if left < n:,1
+26,generate-parentheses,Medium,12,"                backtrack(s + '(', left + 1, right)",1
+26,generate-parentheses,Medium,13,if right < left:,1
+26,generate-parentheses,Medium,14,"                backtrack(s + ')', left, right + 1)",1
+26,generate-parentheses,Medium,15,,skip
+26,generate-parentheses,Medium,16,backtrack(),0
+26,generate-parentheses,Medium,17,return result,0
+26,generate-parentheses,Medium,18,,skip
+27,hamming-distance,Easy,1,class Solution:,0
+27,hamming-distance,Easy,2,"    def hammingDistance(self, x: int, y: int) -> int:",0
+27,hamming-distance,Easy,3,return bin(x ^ y).count('1'),1
+27,hamming-distance,Easy,4,,skip
+28,html-entity-parser,Medium,1,class Solution:,0
+28,html-entity-parser,Medium,2,"    def entityParser(self, text: str) -> str:",0
+28,html-entity-parser,Medium,3,replacements = {,0
+28,html-entity-parser,Medium,4,"            '&quot;': '""',",1
+28,html-entity-parser,Medium,5,"            '&apos;': ""'"",",1
+28,html-entity-parser,Medium,6,"            '&amp;': '&',",1
+28,html-entity-parser,Medium,7,"            '&gt;': '>',",1
+28,html-entity-parser,Medium,8,"            '&lt;': '<',",1
+28,html-entity-parser,Medium,9,&frasl;': '/',1
+28,html-entity-parser,Medium,10,},0
+28,html-entity-parser,Medium,11,"        for old, new in replacements.items():",0
+28,html-entity-parser,Medium,12,"            text = text.replace(old, new)",1
+28,html-entity-parser,Medium,13,return text,0
+28,html-entity-parser,Medium,14,,skip
+29,keep-multiplying-found-values-by-two,Easy,1,from typing import List,0
+29,keep-multiplying-found-values-by-two,Easy,2,,skip
+29,keep-multiplying-found-values-by-two,Easy,3,class Solution:,0
+29,keep-multiplying-found-values-by-two,Easy,4,"    def findFinalValue(self, nums: List[int], original: int) -> int:",0
+29,keep-multiplying-found-values-by-two,Easy,5,nums_set = set(nums),0
+29,keep-multiplying-found-values-by-two,Easy,6,while original in nums_set:,1
+29,keep-multiplying-found-values-by-two,Easy,7,original *= 2,1
+29,keep-multiplying-found-values-by-two,Easy,8,return original,0
+29,keep-multiplying-found-values-by-two,Easy,9,,skip
+30,largest-number-after-digit-swaps-by-parity,Easy,1,class Solution:,0
+30,largest-number-after-digit-swaps-by-parity,Easy,2,"    def largestInteger(self, num: int) -> int:",0
+30,largest-number-after-digit-swaps-by-parity,Easy,3,digits = [int(d) for d in str(num)],0
+30,largest-number-after-digit-swaps-by-parity,Easy,4,"        odd_digits = sorted([d for d in digits if d % 2 != 0], reverse=True)",1
+30,largest-number-after-digit-swaps-by-parity,Easy,5,"        even_digits = sorted([d for d in digits if d % 2 == 0], reverse=True)",1
+30,largest-number-after-digit-swaps-by-parity,Easy,6,,skip
+30,largest-number-after-digit-swaps-by-parity,Easy,7,result = [],0
+30,largest-number-after-digit-swaps-by-parity,Easy,8,for d in digits:,0
+30,largest-number-after-digit-swaps-by-parity,Easy,9,if d % 2 != 0:,1
+30,largest-number-after-digit-swaps-by-parity,Easy,10,result.append(odd_digits.pop(0)),1
+30,largest-number-after-digit-swaps-by-parity,Easy,11,else:,0
+30,largest-number-after-digit-swaps-by-parity,Easy,12,result.append(even_digits.pop(0)),1
+30,largest-number-after-digit-swaps-by-parity,Easy,13,,skip
+30,largest-number-after-digit-swaps-by-parity,Easy,14,"        return int(''.join(map(str, result)))",0
+30,largest-number-after-digit-swaps-by-parity,Easy,15,,skip
+31,largest-time-for-given-digits,Medium,1,from itertools import permutations,0
+31,largest-time-for-given-digits,Medium,2,,skip
+31,largest-time-for-given-digits,Medium,3,class Solution:,0
+31,largest-time-for-given-digits,Medium,4,"    def largestTimeFromDigits(self, arr: List[int]) -> str:",0
+31,largest-time-for-given-digits,Medium,5,max_time = -1,0
+31,largest-time-for-given-digits,Medium,6,"        for h1, h2, m1, m2 in permutations(arr):",1
+31,largest-time-for-given-digits,Medium,7,hours = h1 * 10 + h2,1
+31,largest-time-for-given-digits,Medium,8,minutes = m1 * 10 + m2,1
+31,largest-time-for-given-digits,Medium,9,if hours < 24 and minutes < 60:,1
+31,largest-time-for-given-digits,Medium,10,"                max_time = max(max_time, hours * 60 + minutes)",1
+31,largest-time-for-given-digits,Medium,11,"        return ""{:02d}:{:02d}"".format(max_time // 60, max_time % 60) if max_time != -1 else """"",1
+31,largest-time-for-given-digits,Medium,12,,skip
+32,largest-triangle-area,Easy,1,from typing import List,0
+32,largest-triangle-area,Easy,2,,skip
+32,largest-triangle-area,Easy,3,class Solution:,0
+32,largest-triangle-area,Easy,4,"    def largestTriangleArea(self, points: List[List[int]]) -> float:",0
+32,largest-triangle-area,Easy,5,max_area = 0,0
+32,largest-triangle-area,Easy,6,n = len(points),0
+32,largest-triangle-area,Easy,7,,skip
+32,largest-triangle-area,Easy,8,for i in range(n):,0
+32,largest-triangle-area,Easy,9,"            for j in range(i + 1, n):",1
+32,largest-triangle-area,Easy,10,"                for k in range(j + 1, n):",1
+32,largest-triangle-area,Easy,11,"                    x1, y1 = points[i]",0
+32,largest-triangle-area,Easy,12,"                    x2, y2 = points[j]",0
+32,largest-triangle-area,Easy,13,"                    x3, y3 = points[k]",0
+32,largest-triangle-area,Easy,14,,skip
+32,largest-triangle-area,Easy,15,# Calculate the area using the determinant method,skip
+32,largest-triangle-area,Easy,16,area = abs(x1*(y2 - y3) + x2*(y3 - y1) + x3*(y1 - y2)) / 2.0,1
+32,largest-triangle-area,Easy,17,,skip
+32,largest-triangle-area,Easy,18,if area > max_area:,0
+32,largest-triangle-area,Easy,19,max_area = area,0
+32,largest-triangle-area,Easy,20,,skip
+32,largest-triangle-area,Easy,21,return max_area,0
+32,largest-triangle-area,Easy,22,,skip
+33,longest-arithmetic-subsequence,Medium,1,from typing import List,0
+33,longest-arithmetic-subsequence,Medium,2,,skip
+33,longest-arithmetic-subsequence,Medium,3,class Solution:,0
+33,longest-arithmetic-subsequence,Medium,4,"    def longestArithSeqLength(self, nums: List[int]) -> int:",0
+33,longest-arithmetic-subsequence,Medium,5,n = len(nums),0
+33,longest-arithmetic-subsequence,Medium,6,dp = [{} for _ in range(n)],0
+33,longest-arithmetic-subsequence,Medium,7,max_length = 0,0
+33,longest-arithmetic-subsequence,Medium,8,,skip
+33,longest-arithmetic-subsequence,Medium,9,"        for i in range(1, n):",0
+33,longest-arithmetic-subsequence,Medium,10,for j in range(i):,1
+33,longest-arithmetic-subsequence,Medium,11,diff = nums[i] - nums[j],1
+33,longest-arithmetic-subsequence,Medium,12,"                dp[i][diff] = dp[j].get(diff, 1) + 1",1
+33,longest-arithmetic-subsequence,Medium,13,"                max_length = max(max_length, dp[i][diff])",0
+33,longest-arithmetic-subsequence,Medium,14,,skip
+33,longest-arithmetic-subsequence,Medium,15,return max_length,0
+33,longest-arithmetic-subsequence,Medium,16,,skip
+34,longest-common-subsequence,Medium,1,class Solution:,0
+34,longest-common-subsequence,Medium,2,"    def longestCommonSubsequence(self, text1: str, text2: str) -> int:",0
+34,longest-common-subsequence,Medium,3,"        m, n = len(text1), len(text2)",0
+34,longest-common-subsequence,Medium,4,dp = [[0] * (n + 1) for _ in range(m + 1)],0
+34,longest-common-subsequence,Medium,5,,skip
+34,longest-common-subsequence,Medium,6,"        for i in range(1, m + 1):",0
+34,longest-common-subsequence,Medium,7,"            for j in range(1, n + 1):",0
+34,longest-common-subsequence,Medium,8,if text1[i - 1] == text2[j - 1]:,1
+34,longest-common-subsequence,Medium,9,dp[i][j] = dp[i - 1][j - 1] + 1,1
+34,longest-common-subsequence,Medium,10,else:,0
+34,longest-common-subsequence,Medium,11,"                    dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])",1
+34,longest-common-subsequence,Medium,12,,skip
+34,longest-common-subsequence,Medium,13,return dp[m][n],0
+34,longest-common-subsequence,Medium,14,,skip
+35,longest-duplicate-substring,Hard,1,class Solution:,0
+35,longest-duplicate-substring,Hard,2,"    def longestDupSubstring(self, s: str) -> str:",0
+35,longest-duplicate-substring,Hard,3,n = len(s),0
+35,longest-duplicate-substring,Hard,4,"        left, right = 0, n - 1",0
+35,longest-duplicate-substring,Hard,5,"        result = """"",0
+35,longest-duplicate-substring,Hard,6,,skip
+35,longest-duplicate-substring,Hard,7,while left < right:,0
+35,longest-duplicate-substring,Hard,8,mid = (left + right + 1) // 2,1
+35,longest-duplicate-substring,Hard,9,found = False,0
+35,longest-duplicate-substring,Hard,10,seen = set(),0
+35,longest-duplicate-substring,Hard,11,,skip
+35,longest-duplicate-substring,Hard,12,for i in range(n - mid + 1):,1
+35,longest-duplicate-substring,Hard,13,substring = s[i:i+mid],1
+35,longest-duplicate-substring,Hard,14,if substring in seen:,1
+35,longest-duplicate-substring,Hard,15,result = substring,0
+35,longest-duplicate-substring,Hard,16,found = True,0
+35,longest-duplicate-substring,Hard,17,break,0
+35,longest-duplicate-substring,Hard,18,seen.add(substring),1
+35,longest-duplicate-substring,Hard,19,,skip
+35,longest-duplicate-substring,Hard,20,if found:,0
+35,longest-duplicate-substring,Hard,21,left = mid,1
+35,longest-duplicate-substring,Hard,22,else:,0
+35,longest-duplicate-substring,Hard,23,right = mid - 1,1
+35,longest-duplicate-substring,Hard,24,,skip
+35,longest-duplicate-substring,Hard,25,return result,0
+35,longest-duplicate-substring,Hard,26,,skip
+36,longest-palindromic-subsequence,Medium,1,class Solution:,0
+36,longest-palindromic-subsequence,Medium,2,"    def longestPalindromeSubseq(self, s: str) -> int:",0
+36,longest-palindromic-subsequence,Medium,3,n = len(s),0
+36,longest-palindromic-subsequence,Medium,4,dp = [[0] * n for _ in range(n)],0
+36,longest-palindromic-subsequence,Medium,5,,skip
+36,longest-palindromic-subsequence,Medium,6,"        for i in range(n-1, -1, -1):",1
+36,longest-palindromic-subsequence,Medium,7,dp[i][i] = 1,1
+36,longest-palindromic-subsequence,Medium,8,"            for j in range(i+1, n):",1
+36,longest-palindromic-subsequence,Medium,9,if s[i] == s[j]:,1
+36,longest-palindromic-subsequence,Medium,10,dp[i][j] = dp[i+1][j-1] + 2,1
+36,longest-palindromic-subsequence,Medium,11,else:,0
+36,longest-palindromic-subsequence,Medium,12,"                    dp[i][j] = max(dp[i+1][j], dp[i][j-1])",1
+36,longest-palindromic-subsequence,Medium,13,,skip
+36,longest-palindromic-subsequence,Medium,14,return dp[0][n-1],0
+36,longest-palindromic-subsequence,Medium,15,,skip
+37,longest-repeating-substring,Medium,1,class Solution:,0
+37,longest-repeating-substring,Medium,2,"    def longestRepeatingSubstring(self, s: str) -> int:",0
+37,longest-repeating-substring,Medium,3,n = len(s),0
+37,longest-repeating-substring,Medium,4,ans = 0,0
+37,longest-repeating-substring,Medium,5,for i in range(n):,0
+37,longest-repeating-substring,Medium,6,"            for j in range(i + 1, n):",1
+37,longest-repeating-substring,Medium,7,k = 0,0
+37,longest-repeating-substring,Medium,8,while j + k < n and s[i + k] == s[j + k]:,1
+37,longest-repeating-substring,Medium,9,k += 1,0
+37,longest-repeating-substring,Medium,10,"                ans = max(ans, k)",0
+37,longest-repeating-substring,Medium,11,return ans,0
+37,longest-repeating-substring,Medium,12,,skip
+38,longest-word-with-all-prefixes,Medium,1,from typing import List,0
+38,longest-word-with-all-prefixes,Medium,2,,skip
+38,longest-word-with-all-prefixes,Medium,3,class TrieNode:,0
+38,longest-word-with-all-prefixes,Medium,4,def __init__(self):,0
+38,longest-word-with-all-prefixes,Medium,5,self.children = {},0
+38,longest-word-with-all-prefixes,Medium,6,self.is_end_of_word = False,0
+38,longest-word-with-all-prefixes,Medium,7,,skip
+38,longest-word-with-all-prefixes,Medium,8,class Trie:,0
+38,longest-word-with-all-prefixes,Medium,9,def __init__(self):,0
+38,longest-word-with-all-prefixes,Medium,10,self.root = TrieNode(),0
+38,longest-word-with-all-prefixes,Medium,11,,skip
+38,longest-word-with-all-prefixes,Medium,12,"    def insert(self, word: str) -> None:",0
+38,longest-word-with-all-prefixes,Medium,13,node = self.root,0
+38,longest-word-with-all-prefixes,Medium,14,for char in word:,0
+38,longest-word-with-all-prefixes,Medium,15,if char not in node.children:,0
+38,longest-word-with-all-prefixes,Medium,16,node.children[char] = TrieNode(),0
+38,longest-word-with-all-prefixes,Medium,17,node = node.children[char],0
+38,longest-word-with-all-prefixes,Medium,18,node.is_end_of_word = True,0
+38,longest-word-with-all-prefixes,Medium,19,,skip
+38,longest-word-with-all-prefixes,Medium,20,"    def search_prefix(self, prefix: str) -> bool:",0
+38,longest-word-with-all-prefixes,Medium,21,node = self.root,0
+38,longest-word-with-all-prefixes,Medium,22,for char in prefix:,0
+38,longest-word-with-all-prefixes,Medium,23,if char not in node.children or not node.children[char].is_end_of_word:,1
+38,longest-word-with-all-prefixes,Medium,24,return False,0
+38,longest-word-with-all-prefixes,Medium,25,node = node.children[char],0
+38,longest-word-with-all-prefixes,Medium,26,return True,0
+38,longest-word-with-all-prefixes,Medium,27,,skip
+38,longest-word-with-all-prefixes,Medium,28,class Solution:,0
+38,longest-word-with-all-prefixes,Medium,29,"    def longestWord(self, words: List[str]) -> str:",0
+38,longest-word-with-all-prefixes,Medium,30,trie = Trie(),0
+38,longest-word-with-all-prefixes,Medium,31,for word in words:,0
+38,longest-word-with-all-prefixes,Medium,32,trie.insert(word),0
+38,longest-word-with-all-prefixes,Medium,33,,skip
+38,longest-word-with-all-prefixes,Medium,34,"        result = """"",0
+38,longest-word-with-all-prefixes,Medium,35,"        for word in sorted(words, key=lambda x: (-len(x), x)):",1
+38,longest-word-with-all-prefixes,Medium,36,if trie.search_prefix(word[:-1]):,1
+38,longest-word-with-all-prefixes,Medium,37,if len(word) > len(result) or (len(word) == len(result) and word < result):,1
+38,longest-word-with-all-prefixes,Medium,38,result = word,0
+38,longest-word-with-all-prefixes,Medium,39,,skip
+38,longest-word-with-all-prefixes,Medium,40,return result,0
+38,longest-word-with-all-prefixes,Medium,41,,skip
+39,map-of-highest-peak,Medium,1,from collections import deque,0
+39,map-of-highest-peak,Medium,2,from typing import List,0
+39,map-of-highest-peak,Medium,3,,skip
+39,map-of-highest-peak,Medium,4,class Solution:,0
+39,map-of-highest-peak,Medium,5,"    def highestPeak(self, isWater: List[List[int]]) -> List[List[int]]:",0
+39,map-of-highest-peak,Medium,6,"        rows, cols = len(isWater), len(isWater[0])",0
+39,map-of-highest-peak,Medium,7,"        directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]",0
+39,map-of-highest-peak,Medium,8,queue = deque(),0
+39,map-of-highest-peak,Medium,9,height = [[-1] * cols for _ in range(rows)],0
+39,map-of-highest-peak,Medium,10,,skip
+39,map-of-highest-peak,Medium,11,# Initialize the queue with all water cells and set their height to 0,skip
+39,map-of-highest-peak,Medium,12,for r in range(rows):,0
+39,map-of-highest-peak,Medium,13,for c in range(cols):,0
+39,map-of-highest-peak,Medium,14,if isWater[r][c] == 1:,1
+39,map-of-highest-peak,Medium,15,"                    queue.append((r, c))",0
+39,map-of-highest-peak,Medium,16,height[r][c] = 0,1
+39,map-of-highest-peak,Medium,17,,skip
+39,map-of-highest-peak,Medium,18,# Perform BFS to assign heights to all cells,skip
+39,map-of-highest-peak,Medium,19,while queue:,0
+39,map-of-highest-peak,Medium,20,"            r, c = queue.popleft()",0
+39,map-of-highest-peak,Medium,21,"            for dr, dc in directions:",0
+39,map-of-highest-peak,Medium,22,"                nr, nc = r + dr, c + dc",0
+39,map-of-highest-peak,Medium,23,if 0 <= nr < rows and 0 <= nc < cols and height[nr][nc] == -1:,0
+39,map-of-highest-peak,Medium,24,height[nr][nc] = height[r][c] + 1,1
+39,map-of-highest-peak,Medium,25,"                    queue.append((nr, nc))",0
+39,map-of-highest-peak,Medium,26,,skip
+39,map-of-highest-peak,Medium,27,return height,0
+39,map-of-highest-peak,Medium,28,,skip
+40,max-consecutive-ones-iii,Medium,1,from typing import List,0
+40,max-consecutive-ones-iii,Medium,2,,skip
+40,max-consecutive-ones-iii,Medium,3,class Solution:,0
+40,max-consecutive-ones-iii,Medium,4,"    def longestOnes(self, nums: List[int], k: int) -> int:",0
+40,max-consecutive-ones-iii,Medium,5,left = 0,0
+40,max-consecutive-ones-iii,Medium,6,max_ones = 0,0
+40,max-consecutive-ones-iii,Medium,7,,skip
+40,max-consecutive-ones-iii,Medium,8,for right in range(len(nums)):,0
+40,max-consecutive-ones-iii,Medium,9,if nums[right] == 1:,1
+40,max-consecutive-ones-iii,Medium,10,max_ones += 1,0
+40,max-consecutive-ones-iii,Medium,11,,skip
+40,max-consecutive-ones-iii,Medium,12,if (right - left + 1) - max_ones > k:,1
+40,max-consecutive-ones-iii,Medium,13,if nums[left] == 1:,1
+40,max-consecutive-ones-iii,Medium,14,max_ones -= 1,0
+40,max-consecutive-ones-iii,Medium,15,left += 1,0
+40,max-consecutive-ones-iii,Medium,16,,skip
+40,max-consecutive-ones-iii,Medium,17,return len(nums) - left,1
+40,max-consecutive-ones-iii,Medium,18,,skip
+41,maximum-alternating-subsequence-sum,Medium,1,class Solution:,0
+41,maximum-alternating-subsequence-sum,Medium,2,"    def maxAlternatingSum(self, nums: List[int]) -> int:",0
+41,maximum-alternating-subsequence-sum,Medium,3,max_sum = 0,0
+41,maximum-alternating-subsequence-sum,Medium,4,"        for i in range(1, len(nums)):",0
+41,maximum-alternating-subsequence-sum,Medium,5,if nums[i] > nums[i-1]:,1
+41,maximum-alternating-subsequence-sum,Medium,6,max_sum += nums[i] - nums[i-1],1
+41,maximum-alternating-subsequence-sum,Medium,7,return max_sum + nums[0],1
+41,maximum-alternating-subsequence-sum,Medium,8,,skip
+42,maximum-length-of-subarray-with-positive-product,Medium,1,class Solution:,0
+42,maximum-length-of-subarray-with-positive-product,Medium,2,"    def getMaxLen(self, nums: List[int]) -> int:",0
+42,maximum-length-of-subarray-with-positive-product,Medium,3,max_len = 0,0
+42,maximum-length-of-subarray-with-positive-product,Medium,4,current_pos = 0,0
+42,maximum-length-of-subarray-with-positive-product,Medium,5,current_neg = 0,0
+42,maximum-length-of-subarray-with-positive-product,Medium,6,,skip
+42,maximum-length-of-subarray-with-positive-product,Medium,7,for num in nums:,0
+42,maximum-length-of-subarray-with-positive-product,Medium,8,if num == 0:,1
+42,maximum-length-of-subarray-with-positive-product,Medium,9,current_pos = 0,1
+42,maximum-length-of-subarray-with-positive-product,Medium,10,current_neg = 0,1
+42,maximum-length-of-subarray-with-positive-product,Medium,11,elif num > 0:,1
+42,maximum-length-of-subarray-with-positive-product,Medium,12,current_pos += 1,1
+42,maximum-length-of-subarray-with-positive-product,Medium,13,if current_neg > 0:,1
+42,maximum-length-of-subarray-with-positive-product,Medium,14,current_neg += 1,1
+42,maximum-length-of-subarray-with-positive-product,Medium,15,else:,0
+42,maximum-length-of-subarray-with-positive-product,Medium,16,temp = current_pos,1
+42,maximum-length-of-subarray-with-positive-product,Medium,17,current_pos = current_neg + 1 if current_neg > 0 else 0,1
+42,maximum-length-of-subarray-with-positive-product,Medium,18,current_neg = temp + 1,1
+42,maximum-length-of-subarray-with-positive-product,Medium,19,,skip
+42,maximum-length-of-subarray-with-positive-product,Medium,20,"            max_len = max(max_len, current_pos)",1
+42,maximum-length-of-subarray-with-positive-product,Medium,21,,skip
+42,maximum-length-of-subarray-with-positive-product,Medium,22,return max_len,0
+42,maximum-length-of-subarray-with-positive-product,Medium,23,,skip
+43,maximum-matrix-sum,Medium,1,from typing import List,0
+43,maximum-matrix-sum,Medium,2,,skip
+43,maximum-matrix-sum,Medium,3,class Solution:,0
+43,maximum-matrix-sum,Medium,4,"    def maxMatrixSum(self, matrix: List[List[int]]) -> int:",0
+43,maximum-matrix-sum,Medium,5,negative_count = 0,0
+43,maximum-matrix-sum,Medium,6,min_abs_value = float('inf'),0
+43,maximum-matrix-sum,Medium,7,total_sum = 0,0
+43,maximum-matrix-sum,Medium,8,,skip
+43,maximum-matrix-sum,Medium,9,for row in matrix:,0
+43,maximum-matrix-sum,Medium,10,for num in row:,0
+43,maximum-matrix-sum,Medium,11,if num < 0:,1
+43,maximum-matrix-sum,Medium,12,negative_count += 1,1
+43,maximum-matrix-sum,Medium,13,"                min_abs_value = min(min_abs_value, abs(num))",1
+43,maximum-matrix-sum,Medium,14,total_sum += abs(num),1
+43,maximum-matrix-sum,Medium,15,,skip
+43,maximum-matrix-sum,Medium,16,if negative_count % 2 == 0:,1
+43,maximum-matrix-sum,Medium,17,return total_sum,0
+43,maximum-matrix-sum,Medium,18,else:,0
+43,maximum-matrix-sum,Medium,19,return total_sum - 2 * min_abs_value,1
+43,maximum-matrix-sum,Medium,20,,skip
+44,maximum-number-of-balloons,Easy,1,from collections import Counter,0
+44,maximum-number-of-balloons,Easy,2,,skip
+44,maximum-number-of-balloons,Easy,3,class Solution:,0
+44,maximum-number-of-balloons,Easy,4,"    def maxNumberOfBalloons(self, text: str) -> int:",0
+44,maximum-number-of-balloons,Easy,5,count = Counter(text),0
+44,maximum-number-of-balloons,Easy,6,"        return min(count['b'], count['a'], count['l'] // 2, count['o'] // 2, count['n'])",1
+44,maximum-number-of-balloons,Easy,7,,skip
+45,maximum-number-of-fish-in-a-grid,Medium,1,from typing import List,0
+45,maximum-number-of-fish-in-a-grid,Medium,2,,skip
+45,maximum-number-of-fish-in-a-grid,Medium,3,class Solution:,0
+45,maximum-number-of-fish-in-a-grid,Medium,4,"    def findMaxFish(self, grid: List[List[int]]) -> int:",0
+45,maximum-number-of-fish-in-a-grid,Medium,5,"        rows, cols = len(grid), len(grid[0])",0
+45,maximum-number-of-fish-in-a-grid,Medium,6,visited = set(),0
+45,maximum-number-of-fish-in-a-grid,Medium,7,,skip
+45,maximum-number-of-fish-in-a-grid,Medium,8,"        def dfs(r, c):",0
+45,maximum-number-of-fish-in-a-grid,Medium,9,"            if r < 0 or r >= rows or c < 0 or c >= cols or (r, c) in visited or grid[r][c] == 0:",1
+45,maximum-number-of-fish-in-a-grid,Medium,10,return 0,0
+45,maximum-number-of-fish-in-a-grid,Medium,11,"            visited.add((r, c))",0
+45,maximum-number-of-fish-in-a-grid,Medium,12,"            return grid[r][c] + dfs(r + 1, c) + dfs(r - 1, c) + dfs(r, c + 1) + dfs(r, c - 1)",1
+45,maximum-number-of-fish-in-a-grid,Medium,13,,skip
+45,maximum-number-of-fish-in-a-grid,Medium,14,max_fish = 0,0
+45,maximum-number-of-fish-in-a-grid,Medium,15,for r in range(rows):,0
+45,maximum-number-of-fish-in-a-grid,Medium,16,for c in range(cols):,0
+45,maximum-number-of-fish-in-a-grid,Medium,17,"                if grid[r][c] > 0 and (r, c) not in visited:",1
+45,maximum-number-of-fish-in-a-grid,Medium,18,"                    max_fish = max(max_fish, dfs(r, c))",1
+45,maximum-number-of-fish-in-a-grid,Medium,19,,skip
+45,maximum-number-of-fish-in-a-grid,Medium,20,return max_fish,0
+45,maximum-number-of-fish-in-a-grid,Medium,21,,skip
+46,maximum-number-of-words-found-in-sentences,Easy,1,class Solution:,0
+46,maximum-number-of-words-found-in-sentences,Easy,2,"    def mostWordsFound(self, sentences: List[str]) -> int:",0
+46,maximum-number-of-words-found-in-sentences,Easy,3,return max(len(sentence.split()) for sentence in sentences),1
+46,maximum-number-of-words-found-in-sentences,Easy,4,,skip
+47,maximum-product-subarray,Medium,1,from typing import List,0
+47,maximum-product-subarray,Medium,2,,skip
+47,maximum-product-subarray,Medium,3,class Solution:,0
+47,maximum-product-subarray,Medium,4,"    def maxProduct(self, nums: List[int]) -> int:",0
+47,maximum-product-subarray,Medium,5,if not nums:,0
+47,maximum-product-subarray,Medium,6,return 0,0
+47,maximum-product-subarray,Medium,7,,skip
+47,maximum-product-subarray,Medium,8,max_product = min_product = result = nums[0],1
+47,maximum-product-subarray,Medium,9,,skip
+47,maximum-product-subarray,Medium,10,for num in nums[1:]:,0
+47,maximum-product-subarray,Medium,11,if num < 0:,1
+47,maximum-product-subarray,Medium,12,"                max_product, min_product = min_product, max_product",1
+47,maximum-product-subarray,Medium,13,,skip
+47,maximum-product-subarray,Medium,14,"            max_product = max(num, max_product * num)",1
+47,maximum-product-subarray,Medium,15,"            min_product = min(num, min_product * num)",1
+47,maximum-product-subarray,Medium,16,,skip
+47,maximum-product-subarray,Medium,17,"            result = max(result, max_product)",1
+47,maximum-product-subarray,Medium,18,,skip
+47,maximum-product-subarray,Medium,19,return result,0
+47,maximum-product-subarray,Medium,20,,skip
+48,maximum-size-subarray-sum-equals-k,Medium,1,from typing import List,0
+48,maximum-size-subarray-sum-equals-k,Medium,2,,skip
+48,maximum-size-subarray-sum-equals-k,Medium,3,class Solution:,0
+48,maximum-size-subarray-sum-equals-k,Medium,4,"    def maxSubArrayLen(self, nums: List[int], k: int) -> int:",0
+48,maximum-size-subarray-sum-equals-k,Medium,5,prefix_sum = {0: -1},1
+48,maximum-size-subarray-sum-equals-k,Medium,6,current_sum = 0,0
+48,maximum-size-subarray-sum-equals-k,Medium,7,max_length = 0,0
+48,maximum-size-subarray-sum-equals-k,Medium,8,,skip
+48,maximum-size-subarray-sum-equals-k,Medium,9,"        for i, num in enumerate(nums):",0
+48,maximum-size-subarray-sum-equals-k,Medium,10,current_sum += num,1
+48,maximum-size-subarray-sum-equals-k,Medium,11,,skip
+48,maximum-size-subarray-sum-equals-k,Medium,12,if current_sum - k in prefix_sum:,1
+48,maximum-size-subarray-sum-equals-k,Medium,13,"                max_length = max(max_length, i - prefix_sum[current_sum - k])",1
+48,maximum-size-subarray-sum-equals-k,Medium,14,,skip
+48,maximum-size-subarray-sum-equals-k,Medium,15,if current_sum not in prefix_sum:,1
+48,maximum-size-subarray-sum-equals-k,Medium,16,prefix_sum[current_sum] = i,1
+48,maximum-size-subarray-sum-equals-k,Medium,17,,skip
+48,maximum-size-subarray-sum-equals-k,Medium,18,return max_length,0
+48,maximum-size-subarray-sum-equals-k,Medium,19,,skip
+49,maximum-subarray,Medium,1,class Solution:,0
+49,maximum-subarray,Medium,2,"    def maxSubArray(self, nums: List[int]) -> int:",0
+49,maximum-subarray,Medium,3,max_current = max_global = nums[0],1
+49,maximum-subarray,Medium,4,for num in nums[1:]:,0
+49,maximum-subarray,Medium,5,"            max_current = max(num, max_current + num)",1
+49,maximum-subarray,Medium,6,if max_current > max_global:,1
+49,maximum-subarray,Medium,7,max_global = max_current,1
+49,maximum-subarray,Medium,8,return max_global,0
+49,maximum-subarray,Medium,9,,skip
+50,maximum-value-of-an-ordered-triplet-i,Easy,1,class Solution:,0
+50,maximum-value-of-an-ordered-triplet-i,Easy,2,"    def maximumTripletValue(self, nums: List[int]) -> int:",0
+50,maximum-value-of-an-ordered-triplet-i,Easy,3,max_val = 0,0
+50,maximum-value-of-an-ordered-triplet-i,Easy,4,n = len(nums),0
+50,maximum-value-of-an-ordered-triplet-i,Easy,5,,skip
+50,maximum-value-of-an-ordered-triplet-i,Easy,6,for i in range(n-2):,0
+50,maximum-value-of-an-ordered-triplet-i,Easy,7,"            for j in range(i+1, n-1):",1
+50,maximum-value-of-an-ordered-triplet-i,Easy,8,"                for k in range(j+1, n):",1
+50,maximum-value-of-an-ordered-triplet-i,Easy,9,"                    max_val = max(max_val, (nums[i] - nums[j]) * nums[k])",1
+50,maximum-value-of-an-ordered-triplet-i,Easy,10,,skip
+50,maximum-value-of-an-ordered-triplet-i,Easy,11,return max_val,0
+50,maximum-value-of-an-ordered-triplet-i,Easy,12,,skip
+51,merge-k-sorted-lists,Hard,1,"from typing import List, Optional",0
+51,merge-k-sorted-lists,Hard,2,import heapq,0
+51,merge-k-sorted-lists,Hard,3,,skip
+51,merge-k-sorted-lists,Hard,4,# Definition for singly-linked list.,skip
+51,merge-k-sorted-lists,Hard,5,class ListNode:,0
+51,merge-k-sorted-lists,Hard,6,"    def __init__(self, val=0, next=None):",0
+51,merge-k-sorted-lists,Hard,7,self.val = val,0
+51,merge-k-sorted-lists,Hard,8,self.next = next,0
+51,merge-k-sorted-lists,Hard,9,,skip
+51,merge-k-sorted-lists,Hard,10,class Solution:,0
+51,merge-k-sorted-lists,Hard,11,"    def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:",0
+51,merge-k-sorted-lists,Hard,12,dummy = ListNode(),0
+51,merge-k-sorted-lists,Hard,13,current = dummy,0
+51,merge-k-sorted-lists,Hard,14,min_heap = [],0
+51,merge-k-sorted-lists,Hard,15,,skip
+51,merge-k-sorted-lists,Hard,16,# Push the first node of each list to the heap,skip
+51,merge-k-sorted-lists,Hard,17,"        for i, lst in enumerate(lists):",0
+51,merge-k-sorted-lists,Hard,18,if lst:,0
+51,merge-k-sorted-lists,Hard,19,"                heapq.heappush(min_heap, (lst.val, i, lst))",1
+51,merge-k-sorted-lists,Hard,20,,skip
+51,merge-k-sorted-lists,Hard,21,while min_heap:,0
+51,merge-k-sorted-lists,Hard,22,"            _, i, node = heapq.heappop(min_heap)",1
+51,merge-k-sorted-lists,Hard,23,current.next = node,1
+51,merge-k-sorted-lists,Hard,24,current = current.next,0
+51,merge-k-sorted-lists,Hard,25,,skip
+51,merge-k-sorted-lists,Hard,26,if node.next:,0
+51,merge-k-sorted-lists,Hard,27,"                heapq.heappush(min_heap, (node.next.val, i, node.next))",1
+51,merge-k-sorted-lists,Hard,28,,skip
+51,merge-k-sorted-lists,Hard,29,return dummy.next,0
+51,merge-k-sorted-lists,Hard,30,,skip
+52,minimize-hamming-distance-after-swap-operations,Medium,1,from collections import defaultdict,0
+52,minimize-hamming-distance-after-swap-operations,Medium,2,from typing import List,0
+52,minimize-hamming-distance-after-swap-operations,Medium,3,,skip
+52,minimize-hamming-distance-after-swap-operations,Medium,4,class Solution:,0
+52,minimize-hamming-distance-after-swap-operations,Medium,5,"    def minimumHammingDistance(self, source: List[int], target: List[int], allowedSwaps: List[List[int]]) -> int:",0
+52,minimize-hamming-distance-after-swap-operations,Medium,6,n = len(source),0
+52,minimize-hamming-distance-after-swap-operations,Medium,7,parent = list(range(n)),0
+52,minimize-hamming-distance-after-swap-operations,Medium,8,,skip
+52,minimize-hamming-distance-after-swap-operations,Medium,9,def find(x):,0
+52,minimize-hamming-distance-after-swap-operations,Medium,10,if parent[x] != x:,1
+52,minimize-hamming-distance-after-swap-operations,Medium,11,parent[x] = find(parent[x]),1
+52,minimize-hamming-distance-after-swap-operations,Medium,12,return parent[x],0
+52,minimize-hamming-distance-after-swap-operations,Medium,13,,skip
+52,minimize-hamming-distance-after-swap-operations,Medium,14,"        def union(x, y):",0
+52,minimize-hamming-distance-after-swap-operations,Medium,15,rootX = find(x),0
+52,minimize-hamming-distance-after-swap-operations,Medium,16,rootY = find(y),0
+52,minimize-hamming-distance-after-swap-operations,Medium,17,if rootX != rootY:,1
+52,minimize-hamming-distance-after-swap-operations,Medium,18,parent[rootX] = rootY,1
+52,minimize-hamming-distance-after-swap-operations,Medium,19,,skip
+52,minimize-hamming-distance-after-swap-operations,Medium,20,"        for u, v in allowedSwaps:",0
+52,minimize-hamming-distance-after-swap-operations,Medium,21,"            union(u, v)",1
+52,minimize-hamming-distance-after-swap-operations,Medium,22,,skip
+52,minimize-hamming-distance-after-swap-operations,Medium,23,"        group_count = defaultdict(lambda: [defaultdict(int), defaultdict(int)])",0
+52,minimize-hamming-distance-after-swap-operations,Medium,24,,skip
+52,minimize-hamming-distance-after-swap-operations,Medium,25,for i in range(n):,0
+52,minimize-hamming-distance-after-swap-operations,Medium,26,root = find(i),1
+52,minimize-hamming-distance-after-swap-operations,Medium,27,group_count[root][0][source[i]] += 1,1
+52,minimize-hamming-distance-after-swap-operations,Medium,28,group_count[root][1][target[i]] += 1,1
+52,minimize-hamming-distance-after-swap-operations,Medium,29,,skip
+52,minimize-hamming-distance-after-swap-operations,Medium,30,hamming_distance = 0,0
+52,minimize-hamming-distance-after-swap-operations,Medium,31,,skip
+52,minimize-hamming-distance-after-swap-operations,Medium,32,"        for count_s, count_t in group_count.values():",0
+52,minimize-hamming-distance-after-swap-operations,Medium,33,for num in set(count_s.keys()).union(set(count_t.keys())):,1
+52,minimize-hamming-distance-after-swap-operations,Medium,34,hamming_distance += abs(count_s[num] - count_t[num]),1
+52,minimize-hamming-distance-after-swap-operations,Medium,35,,skip
+52,minimize-hamming-distance-after-swap-operations,Medium,36,return hamming_distance // 2,1
+52,minimize-hamming-distance-after-swap-operations,Medium,37,,skip
+53,minimize-maximum-of-array,Medium,1,from typing import List,0
+53,minimize-maximum-of-array,Medium,2,,skip
+53,minimize-maximum-of-array,Medium,3,class Solution:,0
+53,minimize-maximum-of-array,Medium,4,"    def minimizeArrayValue(self, nums: List[int]) -> int:",0
+53,minimize-maximum-of-array,Medium,5,total_sum = 0,0
+53,minimize-maximum-of-array,Medium,6,max_value = 0,0
+53,minimize-maximum-of-array,Medium,7,,skip
+53,minimize-maximum-of-array,Medium,8,"        for i, num in enumerate(nums):",0
+53,minimize-maximum-of-array,Medium,9,total_sum += num,1
+53,minimize-maximum-of-array,Medium,10,current_max = (total_sum + i) // (i + 1),1
+53,minimize-maximum-of-array,Medium,11,"            max_value = max(max_value, current_max)",1
+53,minimize-maximum-of-array,Medium,12,,skip
+53,minimize-maximum-of-array,Medium,13,return max_value,0
+53,minimize-maximum-of-array,Medium,14,,skip
+54,minimum-deletions-to-make-array-divisible,Hard,1,from typing import List,0
+54,minimum-deletions-to-make-array-divisible,Hard,2,import math,0
+54,minimum-deletions-to-make-array-divisible,Hard,3,,skip
+54,minimum-deletions-to-make-array-divisible,Hard,4,class Solution:,0
+54,minimum-deletions-to-make-array-divisible,Hard,5,"    def minOperations(self, nums: List[int], numsDivide: List[int]) -> int:",0
+54,minimum-deletions-to-make-array-divisible,Hard,6,gcd_all = numsDivide[0],0
+54,minimum-deletions-to-make-array-divisible,Hard,7,for num in numsDivide[1:]:,0
+54,minimum-deletions-to-make-array-divisible,Hard,8,"            gcd_all = math.gcd(gcd_all, num)",1
+54,minimum-deletions-to-make-array-divisible,Hard,9,,skip
+54,minimum-deletions-to-make-array-divisible,Hard,10,nums.sort(),1
+54,minimum-deletions-to-make-array-divisible,Hard,11,"        for i, num in enumerate(nums):",0
+54,minimum-deletions-to-make-array-divisible,Hard,12,if gcd_all % num == 0:,1
+54,minimum-deletions-to-make-array-divisible,Hard,13,return i,1
+54,minimum-deletions-to-make-array-divisible,Hard,14,return -1,0
+54,minimum-deletions-to-make-array-divisible,Hard,15,,skip
+55,minimum-number-of-steps-to-make-two-strings-anagram-ii,Medium,1,from collections import Counter,0
+55,minimum-number-of-steps-to-make-two-strings-anagram-ii,Medium,2,,skip
+55,minimum-number-of-steps-to-make-two-strings-anagram-ii,Medium,3,class Solution:,0
+55,minimum-number-of-steps-to-make-two-strings-anagram-ii,Medium,4,"    def minSteps(self, s: str, t: str) -> int:",0
+55,minimum-number-of-steps-to-make-two-strings-anagram-ii,Medium,5,count_s = Counter(s),0
+55,minimum-number-of-steps-to-make-two-strings-anagram-ii,Medium,6,count_t = Counter(t),0
+55,minimum-number-of-steps-to-make-two-strings-anagram-ii,Medium,7,return sum((count_s - count_t).values()) + sum((count_t - count_s).values()),1
+55,minimum-number-of-steps-to-make-two-strings-anagram-ii,Medium,8,,skip
+56,minimum-operations-to-make-a-uni-value-grid,Medium,1,from typing import List,0
+56,minimum-operations-to-make-a-uni-value-grid,Medium,2,,skip
+56,minimum-operations-to-make-a-uni-value-grid,Medium,3,class Solution:,0
+56,minimum-operations-to-make-a-uni-value-grid,Medium,4,"    def minOperations(self, grid: List[List[int]], x: int) -> int:",0
+56,minimum-operations-to-make-a-uni-value-grid,Medium,5,flat_grid = [num for row in grid for num in row],0
+56,minimum-operations-to-make-a-uni-value-grid,Medium,6,target = sorted(flat_grid)[len(flat_grid) // 2],1
+56,minimum-operations-to-make-a-uni-value-grid,Medium,7,,skip
+56,minimum-operations-to-make-a-uni-value-grid,Medium,8,if any((target - num) % x != 0 for num in flat_grid):,1
+56,minimum-operations-to-make-a-uni-value-grid,Medium,9,return -1,0
+56,minimum-operations-to-make-a-uni-value-grid,Medium,10,,skip
+56,minimum-operations-to-make-a-uni-value-grid,Medium,11,return sum(abs(target - num) // x for num in flat_grid),1
+56,minimum-operations-to-make-a-uni-value-grid,Medium,12,,skip
+57,most-frequent-even-element,Easy,1,from collections import Counter,0
+57,most-frequent-even-element,Easy,2,from typing import List,0
+57,most-frequent-even-element,Easy,3,,skip
+57,most-frequent-even-element,Easy,4,class Solution:,0
+57,most-frequent-even-element,Easy,5,"    def mostFrequentEven(self, nums: List[int]) -> int:",0
+57,most-frequent-even-element,Easy,6,even_counts = Counter(num for num in nums if num % 2 == 0),1
+57,most-frequent-even-element,Easy,7,if not even_counts:,0
+57,most-frequent-even-element,Easy,8,return -1,0
+57,most-frequent-even-element,Easy,9,"        return min(even_counts.items(), key=lambda x: (-x[1], x[0]))[0]",1
+57,most-frequent-even-element,Easy,10,,skip
+58,nim-game,Easy,1,class Solution:,0
+58,nim-game,Easy,2,"    def canWinNim(self, n: int) -> bool:",0
+58,nim-game,Easy,3,return n % 4 != 0,1
+58,nim-game,Easy,4,,skip
+59,non-decreasing-array,Medium,1,class Solution:,0
+59,non-decreasing-array,Medium,2,"    def checkPossibility(self, nums: List[int]) -> bool:",0
+59,non-decreasing-array,Medium,3,modified = False,0
+59,non-decreasing-array,Medium,4,"        for i in range(1, len(nums)):",0
+59,non-decreasing-array,Medium,5,if nums[i] < nums[i - 1]:,1
+59,non-decreasing-array,Medium,6,if modified:,1
+59,non-decreasing-array,Medium,7,return False,0
+59,non-decreasing-array,Medium,8,if i >= 2 and nums[i] < nums[i - 2]:,1
+59,non-decreasing-array,Medium,9,nums[i] = nums[i - 1],1
+59,non-decreasing-array,Medium,10,else:,0
+59,non-decreasing-array,Medium,11,nums[i - 1] = nums[i],1
+59,non-decreasing-array,Medium,12,modified = True,1
+59,non-decreasing-array,Medium,13,return True,0
+59,non-decreasing-array,Medium,14,,skip
+60,nth-digit,Medium,1,class Solution:,0
+60,nth-digit,Medium,2,"    def findNthDigit(self, n: int) -> int:",0
+60,nth-digit,Medium,3,length = 1,0
+60,nth-digit,Medium,4,count = 9,0
+60,nth-digit,Medium,5,start = 1,0
+60,nth-digit,Medium,6,,skip
+60,nth-digit,Medium,7,while n > length * count:,1
+60,nth-digit,Medium,8,n -= length * count,1
+60,nth-digit,Medium,9,length += 1,1
+60,nth-digit,Medium,10,count *= 10,1
+60,nth-digit,Medium,11,start *= 10,1
+60,nth-digit,Medium,12,,skip
+60,nth-digit,Medium,13,num = start + (n - 1) // length,1
+60,nth-digit,Medium,14,digit_index = (n - 1) % length,1
+60,nth-digit,Medium,15,return int(str(num)[digit_index]),1
+60,nth-digit,Medium,16,,skip
+61,number-complement,Easy,1,class Solution:,0
+61,number-complement,Easy,2,"    def findComplement(self, num: int) -> int:",0
+61,number-complement,Easy,3,mask = 0,0
+61,number-complement,Easy,4,while mask < num:,1
+61,number-complement,Easy,5,mask = (mask << 1) | 1,1
+61,number-complement,Easy,6,return num ^ mask,1
+61,number-complement,Easy,7,,skip
+62,number-of-different-integers-in-a-string,Easy,1,class Solution:,0
+62,number-of-different-integers-in-a-string,Easy,2,"    def numDifferentIntegers(self, word: str) -> int:",0
+62,number-of-different-integers-in-a-string,Easy,3,import re,0
+62,number-of-different-integers-in-a-string,Easy,4,numbers = set(),0
+62,number-of-different-integers-in-a-string,Easy,5,"        for match in re.finditer(r'\d+', word):",1
+62,number-of-different-integers-in-a-string,Easy,6,numbers.add(int(match.group())),1
+62,number-of-different-integers-in-a-string,Easy,7,return len(numbers),0
+62,number-of-different-integers-in-a-string,Easy,8,,skip
+63,number-of-digit-one,Hard,1,class Solution:,0
+63,number-of-digit-one,Hard,2,"    def countDigitOne(self, n: int) -> int:",0
+63,number-of-digit-one,Hard,3,if n < 1:,0
+63,number-of-digit-one,Hard,4,return 0,0
+63,number-of-digit-one,Hard,5,,skip
+63,number-of-digit-one,Hard,6,count = 0,0
+63,number-of-digit-one,Hard,7,factor = 1,0
+63,number-of-digit-one,Hard,8,"        high, cur, low = n // 10, n % 10, 0",1
+63,number-of-digit-one,Hard,9,,skip
+63,number-of-digit-one,Hard,10,while high != 0 or cur != 0:,1
+63,number-of-digit-one,Hard,11,if cur == 0:,1
+63,number-of-digit-one,Hard,12,count += high * factor,1
+63,number-of-digit-one,Hard,13,elif cur == 1:,1
+63,number-of-digit-one,Hard,14,count += high * factor + low + 1,1
+63,number-of-digit-one,Hard,15,else:,0
+63,number-of-digit-one,Hard,16,count += (high + 1) * factor,1
+63,number-of-digit-one,Hard,17,,skip
+63,number-of-digit-one,Hard,18,low += cur * factor,1
+63,number-of-digit-one,Hard,19,cur = high % 10,1
+63,number-of-digit-one,Hard,20,high //= 10,1
+63,number-of-digit-one,Hard,21,factor *= 10,1
+63,number-of-digit-one,Hard,22,,skip
+63,number-of-digit-one,Hard,23,return count,0
+63,number-of-digit-one,Hard,24,,skip
+64,number-of-equivalent-domino-pairs,Easy,1,from collections import Counter,0
+64,number-of-equivalent-domino-pairs,Easy,2,from typing import List,0
+64,number-of-equivalent-domino-pairs,Easy,3,,skip
+64,number-of-equivalent-domino-pairs,Easy,4,class Solution:,0
+64,number-of-equivalent-domino-pairs,Easy,5,"    def numEquivDominoPairs(self, dominoes: List[List[int]]) -> int:",0
+64,number-of-equivalent-domino-pairs,Easy,6,count = Counter(tuple(sorted(d)) for d in dominoes),1
+64,number-of-equivalent-domino-pairs,Easy,7,return sum(v * (v - 1) // 2 for v in count.values()),1
+64,number-of-equivalent-domino-pairs,Easy,8,,skip
+65,number-of-islands-ii,Hard,1,from typing import List,0
+65,number-of-islands-ii,Hard,2,import collections,0
+65,number-of-islands-ii,Hard,3,,skip
+65,number-of-islands-ii,Hard,4,class UnionFind:,0
+65,number-of-islands-ii,Hard,5,def __init__(self):,0
+65,number-of-islands-ii,Hard,6,self.parent = {},0
+65,number-of-islands-ii,Hard,7,,skip
+65,number-of-islands-ii,Hard,8,"    def find(self, u):",0
+65,number-of-islands-ii,Hard,9,if u != self.parent[u]:,1
+65,number-of-islands-ii,Hard,10,self.parent[u] = self.find(self.parent[u]),1
+65,number-of-islands-ii,Hard,11,return self.parent[u],0
+65,number-of-islands-ii,Hard,12,,skip
+65,number-of-islands-ii,Hard,13,"    def union(self, u, v):",0
+65,number-of-islands-ii,Hard,14,"        pu, pv = self.find(u), self.find(v)",0
+65,number-of-islands-ii,Hard,15,if pu == pv:,1
+65,number-of-islands-ii,Hard,16,return False,0
+65,number-of-islands-ii,Hard,17,self.parent[pu] = pv,1
+65,number-of-islands-ii,Hard,18,return True,0
+65,number-of-islands-ii,Hard,19,,skip
+65,number-of-islands-ii,Hard,20,def count(self):,0
+65,number-of-islands-ii,Hard,21,return len(set(self.find(i) for i in self.parent)),1
+65,number-of-islands-ii,Hard,22,,skip
+65,number-of-islands-ii,Hard,23,class Solution:,0
+65,number-of-islands-ii,Hard,24,"    def numIslands2(self, m: int, n: int, positions: List[List[int]]) -> List[int]:",0
+65,number-of-islands-ii,Hard,25,uf = UnionFind(),0
+65,number-of-islands-ii,Hard,26,"        directions = [(0, 1), (1, 0), (-1, 0), (0, -1)]",1
+65,number-of-islands-ii,Hard,27,result = [],0
+65,number-of-islands-ii,Hard,28,grid = [[0] * n for _ in range(m)],0
+65,number-of-islands-ii,Hard,29,,skip
+65,number-of-islands-ii,Hard,30,"        for r, c in positions:",0
+65,number-of-islands-ii,Hard,31,if grid[r][c] == 1:,1
+65,number-of-islands-ii,Hard,32,result.append(result[-1]),1
+65,number-of-islands-ii,Hard,33,continue,0
+65,number-of-islands-ii,Hard,34,,skip
+65,number-of-islands-ii,Hard,35,grid[r][c] = 1,1
+65,number-of-islands-ii,Hard,36,"            uf.parent[(r, c)] = (r, c)",1
+65,number-of-islands-ii,Hard,37,count = uf.count(),1
+65,number-of-islands-ii,Hard,38,,skip
+65,number-of-islands-ii,Hard,39,"            for dr, dc in directions:",0
+65,number-of-islands-ii,Hard,40,"                nr, nc = r + dr, c + dc",0
+65,number-of-islands-ii,Hard,41,if 0 <= nr < m and 0 <= nc < n and grid[nr][nc] == 1:,1
+65,number-of-islands-ii,Hard,42,"                    if uf.union((r, c), (nr, nc)):",1
+65,number-of-islands-ii,Hard,43,count -= 1,1
+65,number-of-islands-ii,Hard,44,result.append(count),0
+65,number-of-islands-ii,Hard,45,,skip
+65,number-of-islands-ii,Hard,46,return result,0
+65,number-of-islands-ii,Hard,47,,skip
+66,number-of-lines-to-write-string,Easy,1,from typing import List,0
+66,number-of-lines-to-write-string,Easy,2,,skip
+66,number-of-lines-to-write-string,Easy,3,class Solution:,0
+66,number-of-lines-to-write-string,Easy,4,"    def numberOfLines(self, widths: List[int], s: str) -> List[int]:",0
+66,number-of-lines-to-write-string,Easy,5,"        result = [1, 0]",1
+66,number-of-lines-to-write-string,Easy,6,current_width = 0,0
+66,number-of-lines-to-write-string,Easy,7,,skip
+66,number-of-lines-to-write-string,Easy,8,for char in s:,0
+66,number-of-lines-to-write-string,Easy,9,char_width = widths[ord(char) - ord('a')],1
+66,number-of-lines-to-write-string,Easy,10,if current_width + char_width > 100:,1
+66,number-of-lines-to-write-string,Easy,11,result[0] += 1,1
+66,number-of-lines-to-write-string,Easy,12,current_width = 0,1
+66,number-of-lines-to-write-string,Easy,13,current_width += char_width,1
+66,number-of-lines-to-write-string,Easy,14,,skip
+66,number-of-lines-to-write-string,Easy,15,result[1] = current_width,0
+66,number-of-lines-to-write-string,Easy,16,return result,0
+66,number-of-lines-to-write-string,Easy,17,,skip
+67,number-of-senior-citizens,Easy,1,from typing import List,0
+67,number-of-senior-citizens,Easy,2,,skip
+67,number-of-senior-citizens,Easy,3,class Solution:,0
+67,number-of-senior-citizens,Easy,4,"    def countSeniors(self, details: List[str]) -> int:",0
+67,number-of-senior-citizens,Easy,5,return sum(1 for detail in details if int(detail[11:13]) > 60),1
+67,number-of-senior-citizens,Easy,6,,skip
+68,number-of-subarrays-having-even-product,Medium,1,from typing import List,0
+68,number-of-subarrays-having-even-product,Medium,2,,skip
+68,number-of-subarrays-having-even-product,Medium,3,class Solution:,0
+68,number-of-subarrays-having-even-product,Medium,4,"    def evenProduct(self, nums: List[int]) -> int:",0
+68,number-of-subarrays-having-even-product,Medium,5,total_subarrays = 0,0
+68,number-of-subarrays-having-even-product,Medium,6,last_even_index = -1,0
+68,number-of-subarrays-having-even-product,Medium,7,,skip
+68,number-of-subarrays-having-even-product,Medium,8,"        for i, num in enumerate(nums):",0
+68,number-of-subarrays-having-even-product,Medium,9,if num % 2 == 0:,1
+68,number-of-subarrays-having-even-product,Medium,10,total_subarrays += i + 1,1
+68,number-of-subarrays-having-even-product,Medium,11,last_even_index = i,1
+68,number-of-subarrays-having-even-product,Medium,12,else:,0
+68,number-of-subarrays-having-even-product,Medium,13,if last_even_index != -1:,1
+68,number-of-subarrays-having-even-product,Medium,14,total_subarrays += last_even_index + 1,1
+68,number-of-subarrays-having-even-product,Medium,15,,skip
+68,number-of-subarrays-having-even-product,Medium,16,return total_subarrays,0
+68,number-of-subarrays-having-even-product,Medium,17,,skip
+69,number-of-submatrices-that-sum-to-target,Hard,1,from typing import List,0
+69,number-of-submatrices-that-sum-to-target,Hard,2,import collections,0
+69,number-of-submatrices-that-sum-to-target,Hard,3,,skip
+69,number-of-submatrices-that-sum-to-target,Hard,4,class Solution:,0
+69,number-of-submatrices-that-sum-to-target,Hard,5,"    def numSubmatrixSumTarget(self, matrix: List[List[int]], target: int) -> int:",0
+69,number-of-submatrices-that-sum-to-target,Hard,6,"        rows, cols = len(matrix), len(matrix[0])",0
+69,number-of-submatrices-that-sum-to-target,Hard,7,result = 0,0
+69,number-of-submatrices-that-sum-to-target,Hard,8,,skip
+69,number-of-submatrices-that-sum-to-target,Hard,9,for left in range(cols):,0
+69,number-of-submatrices-that-sum-to-target,Hard,10,sums = [0] * rows,0
+69,number-of-submatrices-that-sum-to-target,Hard,11,"            for right in range(left, cols):",1
+69,number-of-submatrices-that-sum-to-target,Hard,12,for i in range(rows):,0
+69,number-of-submatrices-that-sum-to-target,Hard,13,sums[i] += matrix[i][right],1
+69,number-of-submatrices-that-sum-to-target,Hard,14,,skip
+69,number-of-submatrices-that-sum-to-target,Hard,15,count = collections.Counter({0: 1}),1
+69,number-of-submatrices-that-sum-to-target,Hard,16,current_sum = 0,0
+69,number-of-submatrices-that-sum-to-target,Hard,17,for s in sums:,0
+69,number-of-submatrices-that-sum-to-target,Hard,18,current_sum += s,1
+69,number-of-submatrices-that-sum-to-target,Hard,19,if current_sum - target in count:,1
+69,number-of-submatrices-that-sum-to-target,Hard,20,result += count[current_sum - target],1
+69,number-of-submatrices-that-sum-to-target,Hard,21,count[current_sum] += 1,1
+69,number-of-submatrices-that-sum-to-target,Hard,22,,skip
+69,number-of-submatrices-that-sum-to-target,Hard,23,return result,0
+69,number-of-submatrices-that-sum-to-target,Hard,24,,skip
+70,occurrences-after-bigram,Easy,1,from typing import List,0
+70,occurrences-after-bigram,Easy,2,,skip
+70,occurrences-after-bigram,Easy,3,class Solution:,0
+70,occurrences-after-bigram,Easy,4,"    def findOcurrences(self, text: str, first: str, second: str) -> List[str]:",0
+70,occurrences-after-bigram,Easy,5,words = text.split(),0
+70,occurrences-after-bigram,Easy,6,result = [],0
+70,occurrences-after-bigram,Easy,7,for i in range(len(words) - 2):,1
+70,occurrences-after-bigram,Easy,8,if words[i] == first and words[i + 1] == second:,1
+70,occurrences-after-bigram,Easy,9,result.append(words[i + 2]),1
+70,occurrences-after-bigram,Easy,10,return result,0
+70,occurrences-after-bigram,Easy,11,,skip
+71,output-contest-matches,Medium,1,class Solution:,0
+71,output-contest-matches,Medium,2,"    def findContestMatch(self, n: int) -> str:",0
+71,output-contest-matches,Medium,3,"        teams = list(range(1, n + 1))",1
+71,output-contest-matches,Medium,4,,skip
+71,output-contest-matches,Medium,5,while len(teams) > 1:,0
+71,output-contest-matches,Medium,6,new_round = [],0
+71,output-contest-matches,Medium,7,for i in range(len(teams) // 2):,1
+71,output-contest-matches,Medium,8,"                new_round.append(f""({teams[i]},{teams[~i]})"")",1
+71,output-contest-matches,Medium,9,teams = new_round,0
+71,output-contest-matches,Medium,10,,skip
+71,output-contest-matches,Medium,11,return teams[0],0
+71,output-contest-matches,Medium,12,,skip
+72,paint-house-ii,Hard,1,from typing import List,0
+72,paint-house-ii,Hard,2,,skip
+72,paint-house-ii,Hard,3,class Solution:,0
+72,paint-house-ii,Hard,4,"    def minCostII(self, costs: List[List[int]]) -> int:",0
+72,paint-house-ii,Hard,5,if not costs:,0
+72,paint-house-ii,Hard,6,return 0,0
+72,paint-house-ii,Hard,7,,skip
+72,paint-house-ii,Hard,8,"        n, k = len(costs), len(costs[0])",0
+72,paint-house-ii,Hard,9,,skip
+72,paint-house-ii,Hard,10,"        for i in range(1, n):",1
+72,paint-house-ii,Hard,11,"            first_min, second_min = float('inf'), float('inf')",0
+72,paint-house-ii,Hard,12,"            first_idx, second_idx = -1, -1",0
+72,paint-house-ii,Hard,13,,skip
+72,paint-house-ii,Hard,14,for j in range(k):,0
+72,paint-house-ii,Hard,15,if costs[i-1][j] < first_min:,1
+72,paint-house-ii,Hard,16,second_min = first_min,1
+72,paint-house-ii,Hard,17,second_idx = first_idx,1
+72,paint-house-ii,Hard,18,first_min = costs[i-1][j],1
+72,paint-house-ii,Hard,19,first_idx = j,1
+72,paint-house-ii,Hard,20,elif costs[i-1][j] < second_min:,1
+72,paint-house-ii,Hard,21,second_min = costs[i-1][j],1
+72,paint-house-ii,Hard,22,second_idx = j,1
+72,paint-house-ii,Hard,23,,skip
+72,paint-house-ii,Hard,24,for j in range(k):,0
+72,paint-house-ii,Hard,25,if j != first_idx:,1
+72,paint-house-ii,Hard,26,costs[i][j] += first_min,1
+72,paint-house-ii,Hard,27,else:,0
+72,paint-house-ii,Hard,28,costs[i][j] += second_min,1
+72,paint-house-ii,Hard,29,,skip
+72,paint-house-ii,Hard,30,return min(costs[-1]),1
+72,paint-house-ii,Hard,31,,skip
+73,patching-array,Hard,1,class Solution:,0
+73,patching-array,Hard,2,"    def minPatches(self, nums: List[int], n: int) -> int:",0
+73,patching-array,Hard,3,miss = 1,1
+73,patching-array,Hard,4,i = 0,0
+73,patching-array,Hard,5,patches = 0,0
+73,patching-array,Hard,6,,skip
+73,patching-array,Hard,7,while miss <= n:,1
+73,patching-array,Hard,8,if i < len(nums) and nums[i] <= miss:,1
+73,patching-array,Hard,9,miss += nums[i],1
+73,patching-array,Hard,10,i += 1,0
+73,patching-array,Hard,11,else:,0
+73,patching-array,Hard,12,miss += miss,1
+73,patching-array,Hard,13,patches += 1,0
+73,patching-array,Hard,14,,skip
+73,patching-array,Hard,15,return patches,0
+73,patching-array,Hard,16,,skip
+74,prime-number-of-set-bits-in-binary-representation,Easy,1,class Solution:,0
+74,prime-number-of-set-bits-in-binary-representation,Easy,2,"    def countPrimeSetBits(self, left: int, right: int) -> int:",0
+74,prime-number-of-set-bits-in-binary-representation,Easy,3,def is_prime(n):,0
+74,prime-number-of-set-bits-in-binary-representation,Easy,4,if n < 2:,1
+74,prime-number-of-set-bits-in-binary-representation,Easy,5,return False,0
+74,prime-number-of-set-bits-in-binary-representation,Easy,6,"            for i in range(2, int(n**0.5) + 1):",1
+74,prime-number-of-set-bits-in-binary-representation,Easy,7,if n % i == 0:,1
+74,prime-number-of-set-bits-in-binary-representation,Easy,8,return False,0
+74,prime-number-of-set-bits-in-binary-representation,Easy,9,return True,0
+74,prime-number-of-set-bits-in-binary-representation,Easy,10,,skip
+74,prime-number-of-set-bits-in-binary-representation,Easy,11,count = 0,0
+74,prime-number-of-set-bits-in-binary-representation,Easy,12,"        for num in range(left, right + 1):",1
+74,prime-number-of-set-bits-in-binary-representation,Easy,13,if is_prime(bin(num).count('1')):,1
+74,prime-number-of-set-bits-in-binary-representation,Easy,14,count += 1,0
+74,prime-number-of-set-bits-in-binary-representation,Easy,15,return count,0
+74,prime-number-of-set-bits-in-binary-representation,Easy,16,,skip
+75,range-addition-ii,Easy,1,class Solution:,0
+75,range-addition-ii,Easy,2,"    def maxCount(self, m: int, n: int, ops: List[List[int]]) -> int:",0
+75,range-addition-ii,Easy,3,if not ops:,0
+75,range-addition-ii,Easy,4,return m * n,1
+75,range-addition-ii,Easy,5,,skip
+75,range-addition-ii,Easy,6,min_a = min(op[0] for op in ops),1
+75,range-addition-ii,Easy,7,min_b = min(op[1] for op in ops),1
+75,range-addition-ii,Easy,8,,skip
+75,range-addition-ii,Easy,9,return min_a * min_b,1
+75,range-addition-ii,Easy,10,,skip
+76,remove-letter-to-equalize-frequency,Easy,1,from collections import Counter,0
+76,remove-letter-to-equalize-frequency,Easy,2,,skip
+76,remove-letter-to-equalize-frequency,Easy,3,class Solution:,0
+76,remove-letter-to-equalize-frequency,Easy,4,"    def equalFrequency(self, word: str) -> bool:",0
+76,remove-letter-to-equalize-frequency,Easy,5,for i in range(len(word)):,0
+76,remove-letter-to-equalize-frequency,Easy,6,freq = Counter(word[:i] + word[i+1:]),1
+76,remove-letter-to-equalize-frequency,Easy,7,if len(set(freq.values())) == 1:,1
+76,remove-letter-to-equalize-frequency,Easy,8,return True,0
+76,remove-letter-to-equalize-frequency,Easy,9,return False,0
+76,remove-letter-to-equalize-frequency,Easy,10,,skip
+77,replace-all-digits-with-characters,Easy,1,class Solution:,0
+77,replace-all-digits-with-characters,Easy,2,"    def replaceDigits(self, s: str) -> str:",0
+77,replace-all-digits-with-characters,Easy,3,result = [],0
+77,replace-all-digits-with-characters,Easy,4,"        for i in range(0, len(s), 2):",1
+77,replace-all-digits-with-characters,Easy,5,if i + 1 < len(s):,1
+77,replace-all-digits-with-characters,Easy,6,char = s[i],0
+77,replace-all-digits-with-characters,Easy,7,shift = int(s[i + 1]),1
+77,replace-all-digits-with-characters,Easy,8,result.append(char),0
+77,replace-all-digits-with-characters,Easy,9,result.append(chr(ord(char) + shift)),1
+77,replace-all-digits-with-characters,Easy,10,else:,0
+77,replace-all-digits-with-characters,Easy,11,result.append(s[i]),0
+77,replace-all-digits-with-characters,Easy,12,return ''.join(result),0
+77,replace-all-digits-with-characters,Easy,13,,skip
+78,reverse-only-letters,Easy,1,class Solution:,0
+78,reverse-only-letters,Easy,2,"    def reverseOnlyLetters(self, s: str) -> str:",0
+78,reverse-only-letters,Easy,3,letters = [c for c in s if c.isalpha()],1
+78,reverse-only-letters,Easy,4,return ''.join(c if not c.isalpha() else letters.pop() for c in s),1
+78,reverse-only-letters,Easy,5,,skip
+79,running-sum-of-1d-array,Easy,1,from typing import List,0
+79,running-sum-of-1d-array,Easy,2,,skip
+79,running-sum-of-1d-array,Easy,3,class Solution:,0
+79,running-sum-of-1d-array,Easy,4,"    def runningSum(self, nums: List[int]) -> List[int]:",0
+79,running-sum-of-1d-array,Easy,5,"        for i in range(1, len(nums)):",1
+79,running-sum-of-1d-array,Easy,6,nums[i] += nums[i - 1],1
+79,running-sum-of-1d-array,Easy,7,return nums,0
+79,running-sum-of-1d-array,Easy,8,,skip
+80,sentence-similarity,Easy,1,from typing import List,0
+80,sentence-similarity,Easy,2,,skip
+80,sentence-similarity,Easy,3,class Solution:,0
+80,sentence-similarity,Easy,4,"    def areSentencesSimilar(self, sentence1: List[str], sentence2: List[str], similarPairs: List[List[str]]) -> bool:",0
+80,sentence-similarity,Easy,5,if len(sentence1) != len(sentence2):,1
+80,sentence-similarity,Easy,6,return False,0
+80,sentence-similarity,Easy,7,,skip
+80,sentence-similarity,Easy,8,pair_set = set(tuple(pair) for pair in similarPairs),1
+80,sentence-similarity,Easy,9,,skip
+80,sentence-similarity,Easy,10,"        for w1, w2 in zip(sentence1, sentence2):",1
+80,sentence-similarity,Easy,11,"            if w1 != w2 and (w1, w2) not in pair_set and (w2, w1) not in pair_set:",1
+80,sentence-similarity,Easy,12,return False,0
+80,sentence-similarity,Easy,13,,skip
+80,sentence-similarity,Easy,14,return True,0
+80,sentence-similarity,Easy,15,,skip
+81,smallest-range-ii,Medium,1,from typing import List,0
+81,smallest-range-ii,Medium,2,,skip
+81,smallest-range-ii,Medium,3,class Solution:,0
+81,smallest-range-ii,Medium,4,"    def smallestRangeII(self, nums: List[int], k: int) -> int:",0
+81,smallest-range-ii,Medium,5,nums.sort(),1
+81,smallest-range-ii,Medium,6,result = nums[-1] - nums[0],1
+81,smallest-range-ii,Medium,7,for i in range(len(nums) - 1):,1
+81,smallest-range-ii,Medium,8,"            high = max(nums[-1] - k, nums[i] + k)",1
+81,smallest-range-ii,Medium,9,"            low = min(nums[0] + k, nums[i+1] - k)",1
+81,smallest-range-ii,Medium,10,"            result = min(result, high - low)",1
+81,smallest-range-ii,Medium,11,return result,0
+81,smallest-range-ii,Medium,12,,skip
+82,sort-an-array,Medium,1,class Solution:,0
+82,sort-an-array,Medium,2,"    def sortArray(self, nums: List[int]) -> List[int]:",0
+82,sort-an-array,Medium,3,if len(nums) <= 1:,1
+82,sort-an-array,Medium,4,return nums,0
+82,sort-an-array,Medium,5,,skip
+82,sort-an-array,Medium,6,mid = len(nums) // 2,1
+82,sort-an-array,Medium,7,left_half = self.sortArray(nums[:mid]),1
+82,sort-an-array,Medium,8,right_half = self.sortArray(nums[mid:]),1
+82,sort-an-array,Medium,9,,skip
+82,sort-an-array,Medium,10,"        return self.merge(left_half, right_half)",1
+82,sort-an-array,Medium,11,,skip
+82,sort-an-array,Medium,12,"    def merge(self, left, right):",0
+82,sort-an-array,Medium,13,sorted_array = [],0
+82,sort-an-array,Medium,14,i = j = 0,0
+82,sort-an-array,Medium,15,,skip
+82,sort-an-array,Medium,16,while i < len(left) and j < len(right):,1
+82,sort-an-array,Medium,17,if left[i] < right[j]:,1
+82,sort-an-array,Medium,18,sorted_array.append(left[i]),1
+82,sort-an-array,Medium,19,i += 1,1
+82,sort-an-array,Medium,20,else:,0
+82,sort-an-array,Medium,21,sorted_array.append(right[j]),1
+82,sort-an-array,Medium,22,j += 1,1
+82,sort-an-array,Medium,23,,skip
+82,sort-an-array,Medium,24,sorted_array.extend(left[i:]),1
+82,sort-an-array,Medium,25,sorted_array.extend(right[j:]),1
+82,sort-an-array,Medium,26,,skip
+82,sort-an-array,Medium,27,return sorted_array,0
+82,sort-an-array,Medium,28,,skip
+83,sort-colors,Medium,1,class Solution:,0
+83,sort-colors,Medium,2,"    def sortColors(self, nums: List[int]) -> None:",0
+83,sort-colors,Medium,3,"        low, mid, high = 0, 0, len(nums) - 1",1
+83,sort-colors,Medium,4,,skip
+83,sort-colors,Medium,5,while mid <= high:,1
+83,sort-colors,Medium,6,if nums[mid] == 0:,1
+83,sort-colors,Medium,7,"                nums[low], nums[mid] = nums[mid], nums[low]",1
+83,sort-colors,Medium,8,low += 1,1
+83,sort-colors,Medium,9,mid += 1,1
+83,sort-colors,Medium,10,elif nums[mid] == 1:,1
+83,sort-colors,Medium,11,mid += 1,1
+83,sort-colors,Medium,12,else:,0
+83,sort-colors,Medium,13,"                nums[mid], nums[high] = nums[high], nums[mid]",1
+83,sort-colors,Medium,14,high -= 1,1
+83,sort-colors,Medium,15,,skip
+84,sort-integers-by-the-number-of-1-bits,Easy,1,from typing import List,0
+84,sort-integers-by-the-number-of-1-bits,Easy,2,,skip
+84,sort-integers-by-the-number-of-1-bits,Easy,3,class Solution:,0
+84,sort-integers-by-the-number-of-1-bits,Easy,4,"    def sortByBits(self, arr: List[int]) -> List[int]:",0
+84,sort-integers-by-the-number-of-1-bits,Easy,5,"        return sorted(arr, key=lambda x: (bin(x).count('1'), x))",1
+84,sort-integers-by-the-number-of-1-bits,Easy,6,,skip
+85,sparse-matrix-multiplication,Medium,1,from typing import List,0
+85,sparse-matrix-multiplication,Medium,2,,skip
+85,sparse-matrix-multiplication,Medium,3,class Solution:,0
+85,sparse-matrix-multiplication,Medium,4,"    def multiply(self, mat1: List[List[int]], mat2: List[List[int]]) -> List[List[int]]:",0
+85,sparse-matrix-multiplication,Medium,5,"        m, k, n = len(mat1), len(mat1[0]), len(mat2[0])",1
+85,sparse-matrix-multiplication,Medium,6,result = [[0] * n for _ in range(m)],1
+85,sparse-matrix-multiplication,Medium,7,,skip
+85,sparse-matrix-multiplication,Medium,8,for i in range(m):,0
+85,sparse-matrix-multiplication,Medium,9,for j in range(n):,0
+85,sparse-matrix-multiplication,Medium,10,for l in range(k):,0
+85,sparse-matrix-multiplication,Medium,11,result[i][j] += mat1[i][l] * mat2[l][j],1
+85,sparse-matrix-multiplication,Medium,12,,skip
+85,sparse-matrix-multiplication,Medium,13,return result,0
+85,sparse-matrix-multiplication,Medium,14,,skip
+86,split-strings-by-separator,Easy,1,from typing import List,0
+86,split-strings-by-separator,Easy,2,,skip
+86,split-strings-by-separator,Easy,3,class Solution:,0
+86,split-strings-by-separator,Easy,4,"    def splitWordsBySeparator(self, words: List[str], separator: str) -> List[str]:",0
+86,split-strings-by-separator,Easy,5,result = [],0
+86,split-strings-by-separator,Easy,6,for word in words:,0
+86,split-strings-by-separator,Easy,7,parts = word.split(separator),1
+86,split-strings-by-separator,Easy,8,"            result.extend(filter(None, parts))",1
+86,split-strings-by-separator,Easy,9,return result,0
+86,split-strings-by-separator,Easy,10,,skip
+87,strictly-palindromic-number,Medium,1,class Solution:,0
+87,strictly-palindromic-number,Medium,2,"    def isStrictlyPalindromic(self, n: int) -> bool:",0
+87,strictly-palindromic-number,Medium,3,return False,1
+87,strictly-palindromic-number,Medium,4,,skip
+88,student-attendance-record-i,Easy,1,class Solution:,0
+88,student-attendance-record-i,Easy,2,"    def checkRecord(self, s: str) -> bool:",0
+88,student-attendance-record-i,Easy,3,return s.count('A') < 2 and 'LLL' not in s,1
+88,student-attendance-record-i,Easy,4,,skip
+89,subarray-product-less-than-k,Medium,1,from typing import List,0
+89,subarray-product-less-than-k,Medium,2,,skip
+89,subarray-product-less-than-k,Medium,3,class Solution:,0
+89,subarray-product-less-than-k,Medium,4,"    def numSubarrayProductLessThanK(self, nums: List[int], k: int) -> int:",0
+89,subarray-product-less-than-k,Medium,5,if k <= 1:,1
+89,subarray-product-less-than-k,Medium,6,return 0,0
+89,subarray-product-less-than-k,Medium,7,,skip
+89,subarray-product-less-than-k,Medium,8,left = 0,0
+89,subarray-product-less-than-k,Medium,9,product = 1,0
+89,subarray-product-less-than-k,Medium,10,count = 0,0
+89,subarray-product-less-than-k,Medium,11,,skip
+89,subarray-product-less-than-k,Medium,12,for right in range(len(nums)):,0
+89,subarray-product-less-than-k,Medium,13,product *= nums[right],1
+89,subarray-product-less-than-k,Medium,14,,skip
+89,subarray-product-less-than-k,Medium,15,while product >= k:,1
+89,subarray-product-less-than-k,Medium,16,product //= nums[left],1
+89,subarray-product-less-than-k,Medium,17,left += 1,1
+89,subarray-product-less-than-k,Medium,18,,skip
+89,subarray-product-less-than-k,Medium,19,count += right - left + 1,1
+89,subarray-product-less-than-k,Medium,20,,skip
+89,subarray-product-less-than-k,Medium,21,return count,0
+89,subarray-product-less-than-k,Medium,22,,skip
+90,substrings-of-size-three-with-distinct-characters,Easy,1,class Solution:,0
+90,substrings-of-size-three-with-distinct-characters,Easy,2,"    def countGoodSubstrings(self, s: str) -> int:",0
+90,substrings-of-size-three-with-distinct-characters,Easy,3,count = 0,0
+90,substrings-of-size-three-with-distinct-characters,Easy,4,for i in range(len(s) - 2):,1
+90,substrings-of-size-three-with-distinct-characters,Easy,5,if len(set(s[i:i+3])) == 3:,1
+90,substrings-of-size-three-with-distinct-characters,Easy,6,count += 1,0
+90,substrings-of-size-three-with-distinct-characters,Easy,7,return count,0
+90,substrings-of-size-three-with-distinct-characters,Easy,8,,skip
+91,successful-pairs-of-spells-and-potions,Medium,1,from typing import List,0
+91,successful-pairs-of-spells-and-potions,Medium,2,import bisect,0
+91,successful-pairs-of-spells-and-potions,Medium,3,,skip
+91,successful-pairs-of-spells-and-potions,Medium,4,class Solution:,0
+91,successful-pairs-of-spells-and-potions,Medium,5,"    def successfulPairs(self, spells: List[int], potions: List[int], success: int) -> List[int]:",0
+91,successful-pairs-of-spells-and-potions,Medium,6,potions.sort(),1
+91,successful-pairs-of-spells-and-potions,Medium,7,result = [],0
+91,successful-pairs-of-spells-and-potions,Medium,8,,skip
+91,successful-pairs-of-spells-and-potions,Medium,9,for spell in spells:,0
+91,successful-pairs-of-spells-and-potions,Medium,10,target = (success + spell - 1) // spell,1
+91,successful-pairs-of-spells-and-potions,Medium,11,"            index = bisect.bisect_left(potions, target)",1
+91,successful-pairs-of-spells-and-potions,Medium,12,result.append(len(potions) - index),1
+91,successful-pairs-of-spells-and-potions,Medium,13,,skip
+91,successful-pairs-of-spells-and-potions,Medium,14,return result,0
+91,successful-pairs-of-spells-and-potions,Medium,15,,skip
+92,sum-of-even-numbers-after-queries,Medium,1,from typing import List,0
+92,sum-of-even-numbers-after-queries,Medium,2,,skip
+92,sum-of-even-numbers-after-queries,Medium,3,class Solution:,0
+92,sum-of-even-numbers-after-queries,Medium,4,"    def sumEvenAfterQueries(self, nums: List[int], queries: List[List[int]]) -> List[int]:",0
+92,sum-of-even-numbers-after-queries,Medium,5,result = [],0
+92,sum-of-even-numbers-after-queries,Medium,6,current_sum = sum(num for num in nums if num % 2 == 0),1
+92,sum-of-even-numbers-after-queries,Medium,7,,skip
+92,sum-of-even-numbers-after-queries,Medium,8,"        for val, index in queries:",0
+92,sum-of-even-numbers-after-queries,Medium,9,if nums[index] % 2 == 0:,1
+92,sum-of-even-numbers-after-queries,Medium,10,current_sum -= nums[index],1
+92,sum-of-even-numbers-after-queries,Medium,11,,skip
+92,sum-of-even-numbers-after-queries,Medium,12,nums[index] += val,1
+92,sum-of-even-numbers-after-queries,Medium,13,,skip
+92,sum-of-even-numbers-after-queries,Medium,14,if nums[index] % 2 == 0:,1
+92,sum-of-even-numbers-after-queries,Medium,15,current_sum += nums[index],1
+92,sum-of-even-numbers-after-queries,Medium,16,,skip
+92,sum-of-even-numbers-after-queries,Medium,17,result.append(current_sum),0
+92,sum-of-even-numbers-after-queries,Medium,18,,skip
+92,sum-of-even-numbers-after-queries,Medium,19,return result,0
+92,sum-of-even-numbers-after-queries,Medium,20,,skip
+93,surrounded-regions,Medium,1,from typing import List,0
+93,surrounded-regions,Medium,2,,skip
+93,surrounded-regions,Medium,3,class Solution:,0
+93,surrounded-regions,Medium,4,"    def solve(self, board: List[List[str]]) -> None:",0
+93,surrounded-regions,Medium,5,"        """"""",0
+93,surrounded-regions,Medium,6,"        Do not return anything, modify board in-place instead.",0
+93,surrounded-regions,Medium,7,"        """"""",0
+93,surrounded-regions,Medium,8,if not board:,0
+93,surrounded-regions,Medium,9,return,0
+93,surrounded-regions,Medium,10,,skip
+93,surrounded-regions,Medium,11,"        rows, cols = len(board), len(board[0])",0
+93,surrounded-regions,Medium,12,,skip
+93,surrounded-regions,Medium,13,"        def dfs(r, c):",0
+93,surrounded-regions,Medium,14,if r < 0 or r >= rows or c < 0 or c >= cols or board[r][c] != 'O':,1
+93,surrounded-regions,Medium,15,return,0
+93,surrounded-regions,Medium,16,board[r][c] = 'T',1
+93,surrounded-regions,Medium,17,"            dfs(r + 1, c)",0
+93,surrounded-regions,Medium,18,"            dfs(r - 1, c)",0
+93,surrounded-regions,Medium,19,"            dfs(r, c + 1)",0
+93,surrounded-regions,Medium,20,"            dfs(r, c - 1)",0
+93,surrounded-regions,Medium,21,,skip
+93,surrounded-regions,Medium,22,# Capture unsurrounded regions (O -> T),skip
+93,surrounded-regions,Medium,23,for r in range(rows):,0
+93,surrounded-regions,Medium,24,for c in range(cols):,0
+93,surrounded-regions,Medium,25,"                if (r in [0, rows - 1] or c in [0, cols - 1]) and board[r][c] == 'O':",1
+93,surrounded-regions,Medium,26,"                    dfs(r, c)",0
+93,surrounded-regions,Medium,27,,skip
+93,surrounded-regions,Medium,28,# Capture surrounded regions (O -> X),skip
+93,surrounded-regions,Medium,29,for r in range(rows):,0
+93,surrounded-regions,Medium,30,for c in range(cols):,0
+93,surrounded-regions,Medium,31,if board[r][c] == 'O':,1
+93,surrounded-regions,Medium,32,board[r][c] = 'X',1
+93,surrounded-regions,Medium,33,,skip
+93,surrounded-regions,Medium,34,# Uncapture unsurrounded regions (T -> O),skip
+93,surrounded-regions,Medium,35,for r in range(rows):,0
+93,surrounded-regions,Medium,36,for c in range(cols):,0
+93,surrounded-regions,Medium,37,if board[r][c] == 'T':,1
+93,surrounded-regions,Medium,38,board[r][c] = 'O',1
+93,surrounded-regions,Medium,39,,skip
+94,toeplitz-matrix,Easy,1,class Solution:,0
+94,toeplitz-matrix,Easy,2,"    def isToeplitzMatrix(self, matrix: List[List[int]]) -> bool:",0
+94,toeplitz-matrix,Easy,3,"        for i in range(1, len(matrix)):",0
+94,toeplitz-matrix,Easy,4,if matrix[i][1:] != matrix[i-1][:-1]:,1
+94,toeplitz-matrix,Easy,5,return False,0
+94,toeplitz-matrix,Easy,6,return True,0
+94,toeplitz-matrix,Easy,7,,skip
+95,ugly-number,Easy,1,class Solution:,0
+95,ugly-number,Easy,2,"    def isUgly(self, n: int) -> bool:",0
+95,ugly-number,Easy,3,if n == 0:,1
+95,ugly-number,Easy,4,return False,0
+95,ugly-number,Easy,5,"        for p in [2, 3, 5]:",1
+95,ugly-number,Easy,6,while n % p == 0:,1
+95,ugly-number,Easy,7,n //= p,1
+95,ugly-number,Easy,8,return n == 1,1
+95,ugly-number,Easy,9,,skip
+96,valid-palindrome-ii,Easy,1,class Solution:,0
+96,valid-palindrome-ii,Easy,2,"    def validPalindrome(self, s: str) -> bool:",0
+96,valid-palindrome-ii,Easy,3,"        left, right = 0, len(s) - 1",0
+96,valid-palindrome-ii,Easy,4,,skip
+96,valid-palindrome-ii,Easy,5,while left < right:,0
+96,valid-palindrome-ii,Easy,6,if s[left] != s[right]:,1
+96,valid-palindrome-ii,Easy,7,# Check by removing either the left or the right character,skip
+96,valid-palindrome-ii,Easy,8,return s[left:right] == s[left:right][::-1] or s[left+1:right+1] == s[left+1:right+1][::-1],1
+96,valid-palindrome-ii,Easy,9,left += 1,0
+96,valid-palindrome-ii,Easy,10,right -= 1,0
+96,valid-palindrome-ii,Easy,11,,skip
+96,valid-palindrome-ii,Easy,12,return True,0
+96,valid-palindrome-ii,Easy,13,,skip
+97,validate-stack-sequences,Medium,1,class Solution:,0
+97,validate-stack-sequences,Medium,2,"    def validateStackSequences(self, pushed: List[int], popped: List[int]) -> bool:",0
+97,validate-stack-sequences,Medium,3,stack = [],0
+97,validate-stack-sequences,Medium,4,i = j = 0,0
+97,validate-stack-sequences,Medium,5,,skip
+97,validate-stack-sequences,Medium,6,while i < len(pushed):,0
+97,validate-stack-sequences,Medium,7,stack.append(pushed[i]),1
+97,validate-stack-sequences,Medium,8,i += 1,0
+97,validate-stack-sequences,Medium,9,,skip
+97,validate-stack-sequences,Medium,10,while stack and stack[-1] == popped[j]:,1
+97,validate-stack-sequences,Medium,11,stack.pop(),0
+97,validate-stack-sequences,Medium,12,j += 1,0
+97,validate-stack-sequences,Medium,13,,skip
+97,validate-stack-sequences,Medium,14,return not stack,1
+97,validate-stack-sequences,Medium,15,,skip
+98,widest-vertical-area-between-two-points-containing-no-points,Easy,1,from typing import List,0
+98,widest-vertical-area-between-two-points-containing-no-points,Easy,2,,skip
+98,widest-vertical-area-between-two-points-containing-no-points,Easy,3,class Solution:,0
+98,widest-vertical-area-between-two-points-containing-no-points,Easy,4,"    def maxWidthOfVerticalArea(self, points: List[List[int]]) -> int:",0
+98,widest-vertical-area-between-two-points-containing-no-points,Easy,5,x_coords = sorted(point[0] for point in points),1
+98,widest-vertical-area-between-two-points-containing-no-points,Easy,6,max_width = 0,0
+98,widest-vertical-area-between-two-points-containing-no-points,Easy,7,"        for i in range(1, len(x_coords)):",0
+98,widest-vertical-area-between-two-points-containing-no-points,Easy,8,"            max_width = max(max_width, x_coords[i] - x_coords[i-1])",1
+98,widest-vertical-area-between-two-points-containing-no-points,Easy,9,return max_width,0
+98,widest-vertical-area-between-two-points-containing-no-points,Easy,10,,skip
+99,word-break,Medium,1,from typing import List,0
+99,word-break,Medium,2,,skip
+99,word-break,Medium,3,class Solution:,0
+99,word-break,Medium,4,"    def wordBreak(self, s: str, wordDict: List[str]) -> bool:",0
+99,word-break,Medium,5,dp = [False] * (len(s) + 1),0
+99,word-break,Medium,6,dp[0] = True,1
+99,word-break,Medium,7,,skip
+99,word-break,Medium,8,"        for i in range(1, len(s) + 1):",0
+99,word-break,Medium,9,for word in wordDict:,0
+99,word-break,Medium,10,if dp[i - len(word)] and s[i - len(word):i] == word:,1
+99,word-break,Medium,11,dp[i] = True,1
+99,word-break,Medium,12,break,0
+99,word-break,Medium,13,,skip
+99,word-break,Medium,14,return dp[len(s)],0
+99,word-break,Medium,15,,skip
+100,xor-operation-in-an-array,Easy,1,class Solution:,0
+100,xor-operation-in-an-array,Easy,2,"    def xorOperation(self, n: int, start: int) -> int:",0
+100,xor-operation-in-an-array,Easy,3,result = 0,0
+100,xor-operation-in-an-array,Easy,4,for i in range(n):,0
+100,xor-operation-in-an-array,Easy,5,result ^= start + 2 * i,1
+100,xor-operation-in-an-array,Easy,6,return result,0
+100,xor-operation-in-an-array,Easy,7,,skip

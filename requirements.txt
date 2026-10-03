@@ -1,0 +1,19 @@
+# Core: unlearning, training, evaluation
+torch
+transformers
+peft
+datasets
+numpy
+scipy
+
+# Important-line detectors (structural / AST)
+tree-sitter
+tree-sitter-python
+
+# Figures and tables
+matplotlib
+seaborn
+python-pptx
+
+# LLM annotator API calls (Claude / GPT / Gemini)
+requests
